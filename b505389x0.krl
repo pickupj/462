@@ -27,20 +27,9 @@ ruleset b505389x0 {
 	//	  This notification box should say "Hello [...]" followed bu the value
 	//	  of the query string (if empty, default to "Monkey").
 	rule hello_notification {
-		select when pageview ".*"
-		pre {
-			
-			// 4. Write a function that given a string returns the value of the key name
-			//	  Use function with the query string to modify rule 3 so that the notification says
-			//	  "Hello [...]" followed by the value of the key name
-			extract_name = function() {
-				query = page:url("query");
-				//"Monkey";
-				query;
-			};
-		}
+		select when web pageview url re#/b505389x0/*#
 		{
-			notify("Hello", "Hello, " + extract_name()) with sticky = true;
+			notify("Hello", "Hello, Monkey") with sticky = true;
 		}
 	}
 	
