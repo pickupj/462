@@ -29,12 +29,26 @@ ruleset b505389x0 {
 	rule hello_notification {
 		select when pageview ".*"
 		pre {
-			query = page:url("query");
+			
+			// 4. Write a function that given a string returns the value of the key name
+			//	  Use function with the query string to modify rule 3 so that the notification says
+			//	  "Hello [...]" followed by the value of the key name
+			extract_name = function() {
+				query = page:url("query");
+				//"Monkey";
+				query;
+			};
 		}
 		{
-			notify("Test", "Getting here");
-			notify("Hello", "Hello " + query);
-			notify("Test2", "Getting here");
+			notify("Hello", "Hello, " + extract_name()) with sticky = true;
 		}
 	}
+	
+	
+	// 5. [Rule] Count the number of times it has fired and stop showing its notification
+	//	  after five time for any given user. Disply the count in the notification.
+	
+	
+	// 6. [Rule] Clear the count from 5 if a query string parameter named clear is given
+	//	  in exampley.com URL
 }
