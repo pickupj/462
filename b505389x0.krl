@@ -10,10 +10,12 @@ ruleset b505389x0 {
 	dispatch {
 		domain "ktest.heroku.com"
 	}
-	rule first_rule {
+	rule two_notifications {
 		select when pageview ".*"
-		// Display notification that will not fade.
-		notify("Notification 1", "This is a notification.") with sticky = true
-		notify("Notification 2", "This is another notification from the same rule") with sticky = true;
+		{
+			// Display notification that will not fade.
+			notify("Notification 1", "This is a notification.") with sticky = true;
+			notify("Notification 2", "This is another notification from the same rule") with sticky = true;
+		}
 	}
 }
