@@ -32,7 +32,9 @@ ruleset b505389x0 {
 			query = page:url("query");
 		}
 		{
+			notify("Test", "Getting here");
 			notify("Hello", "Hello " + query);
+			notify("Test2", "Getting here");
 		}
 	}
 }
