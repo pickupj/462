@@ -11,9 +11,9 @@ ruleset b505389x0 {
 		domain "ktest.heroku.com"
 	}
 	rule first_rule {
-		select when pageview ".*" setting()
+		select when pageview ".*"
 		// Display notification that will not fade.
-		notify("Notification 1", "This is a notification.")
-		notify("Notification 2", "This is another notification from the same rule");
+		notify("Notification 1", "This is a notification.") with sticky = true
+		notify("Notification 2", "This is another notification from the same rule") with sticky = true;
 	}
 }
