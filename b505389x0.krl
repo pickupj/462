@@ -44,6 +44,7 @@ ruleset b505389x0 {
 	}
 	
 	
+	
 	// 5. [Rule] Count the number of times it has fired and stop showing its notification
 	//	  after five time for any given user. Display the count in the notification.
 	rule count_visits {
@@ -52,9 +53,12 @@ ruleset b505389x0 {
 			visits = ent:page_visits;
 		}
 		if ent:page_visits <= 5 then
-			notify("Visited " + visits + " times.");
+			notify("Visits", "Visited " + visits + " times.");
 		fired {
 			ent:page_visits += 1 from 1;
+		} else {
+			// if clear is in the query parameter
+			// clear ent:page_visits
 		}
 	}
 	
