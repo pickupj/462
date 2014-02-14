@@ -33,7 +33,7 @@ ruleset b505389x0 {
 		
 			extract_name = function() {
 				query = page:url("query");
-				nameArray = query.extract(re/name=(+)/);
+				nameArray = query.extract(re/?*name=(+)/);
 				name = nameArray[0];// == "" => "Monkey" | nameArray[0];
 				name;
 			}
