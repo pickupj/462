@@ -30,8 +30,9 @@ ruleset b505389x0 {
 		select when pageview ".*"
 		
 		pre {
-			name = page:url("query").match("*name=(*)&*");
 			query = page:url("query").match("*=*") => page:url("query") | "Monkey";	
+			
+			name = query == "Monkey" => "Monkey" | query.match("*name=(*)&*") => query.match("*name=(*)&*") | "Monkey";
 		}
 		{			
 			notify("Hello", "Hello, " + query) with sticky = true;
