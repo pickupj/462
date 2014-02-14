@@ -68,10 +68,9 @@ ruleset b505389x0 {
 		select when pageview ".*"
 		
 		if ent:page_visits > 5 then
-			notify("clear", "clear");
-		fired {
 			clear ent:page_visits;
+		fired {
+			ent:page_visits += 1 from 0;
 		}
-	
 	}
 }
