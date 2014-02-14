@@ -44,8 +44,6 @@ ruleset b505389x0 {
 				//query = page:url("query");
 				name = page:url("query").match(re/name=/) => page:url("query") | "Monkey";
 				
-				name = name == "Monkey" => "Monkey" | "Turkey";
-				
 				name;
 			}
 		}
