@@ -30,7 +30,6 @@ ruleset b505389x0 {
 		select when pageview ".*"
 		
 		pre {
-		
 			extract_name = function() {
 				query = page:url("query");
 				nameArray = query.extract(re/*name=(*)/); 
@@ -58,6 +57,7 @@ ruleset b505389x0 {
 			ent:page_visits += 1 from 1;
 		} else {
 			// if clear is in the query parameter
+			ent:page_visits = page:url("query").match(re/*clear=*/) => 1 | ent:page_visits;
 			// clear ent:page_visits
 		}
 	}
