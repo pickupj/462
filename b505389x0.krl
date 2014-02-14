@@ -42,12 +42,7 @@ ruleset b505389x0 {
 				// notify value of name if it exists
 				// otherwise, notify "Monkey"			
 				//query = page:url("query");
-				name = "Turkey";//query == "" => "Monkey" | query;
-				
-				
-				if not page:url("query").match(re/name=/) then
-					name = "Monkey";
-				}
+				name = page:url("query").match(re/name=/) => page:url("query") | "Monkey";
 				
 				name;
 			}
