@@ -30,11 +30,14 @@ ruleset b505389x0 {
 		select when pageview ".*"
 		
 		pre {
-			query = page:url("query");
+			query = page:url("query") == "" => "Monkey" | page:url("query");
+			
 		}
 		{
 			notify("Query", query) with sticky = true;
-			notify("Hello", "Hello, " + query == "" => "Monkey" | query) with sticky = true;
+			notify("Value", query == "") with sticky = true;
+			
+			notify("Hello", "Hello, " + query) with sticky = true;
 		}
 	}
 	
