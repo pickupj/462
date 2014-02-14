@@ -33,7 +33,7 @@ ruleset b505389x0 {
 			query = page:url("query");
 		}
 		
-		notify("Hello", "Hello, " + query.match("") => "Monkey" | query) with sticky = true;
+		notify("Hello", "Hello, " + query == "" => "Monkey" | query) with sticky = true;
 	}
 	
 	
