@@ -32,7 +32,9 @@ ruleset b505389x0 {
 		pre {
 		
 			extract_name = function() {
-				page:url("query").match("name=*") => query.match("name=(*)") | "Monkey";
+				page:url("query").match("name=(*)") setting(name);
+				name == "" => "Monkey" | name;// => query.match("name=(*)") | "Monkey";
+				
 			}
 		}
 		{
