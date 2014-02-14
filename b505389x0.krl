@@ -54,7 +54,7 @@ ruleset b505389x0 {
 		if ent:page_visits <= 5 then
 			notify("Visited " + visits + " times.");
 		fired {
-			ent:page_visits + 1 from 1;
+			ent:page_visits += 1 from 1;
 		}
 	}
 	
