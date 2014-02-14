@@ -46,7 +46,7 @@ ruleset b505389x0 {
 				
 				value = query.match(re/name=.*/) => page:url("query").extract(re/name=(.*)/).head() 
 												   | "Monkey";
-				name = value.match(re/&/) => value.split("&").head() | value;
+				name = value.match(re/&/) => value.split(re/&/).head() | value;
 				name;
 			}
 		}
