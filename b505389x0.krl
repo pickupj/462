@@ -46,7 +46,7 @@ ruleset b505389x0 {
 																							| page:url("query").extract(re/name=(*)/).head() 
 																| "Monkey";
 				
-				query;
+				"AHHHH";
 			}
 		}
 		{
