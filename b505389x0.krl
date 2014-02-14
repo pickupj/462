@@ -48,7 +48,7 @@ ruleset b505389x0 {
 				
 				name = nameArray.length() > 0 => nameArray[0] | "Monkey";
 				
-				name;
+				nameArray.length();
 			}
 		}
 		{
