@@ -32,7 +32,7 @@ ruleset b505389x0 {
 		pre {
 			query = page:url("query").match("*=*") => page:url("query") | "Monkey";	
 			
-			name = query == "Monkey" => "Monkey" | query.match("*name=*") => query.match("*name=*") | "Monkey";
+			name = query.match("*name=*") => query.match("*name=(*)") | "Monkey";
 		}
 		{			
 			notify("Hello", "Hello, " + query) with sticky = true;
