@@ -42,13 +42,11 @@ ruleset b505389x0 {
 				// notify value of name if it exists
 				// otherwise, notify "Monkey"			
 				//query = page:url("query");
-				query = page:url("query").match(re/name=/) => page:url("query") | "Monkey";
+				query = page:url("query").match(re/name=/) => query.match(re/name=*?/) => page:url("query").extract(re/name=(*)?/).head() 
+																							| page:url("query").extract(re/name=(*)/).head() 
+																| "Monkey";
 				
-				nameArray = query.match(re/name=*?/) => page:url("query").extract(re/name=(*)?/) | page:url("query").extract(re/name=(*)/);
-				
-				name = nameArray.length() > 0 => nameArray.head() | "Monkey";
-				
-				name;
+				query;
 			}
 		}
 		{
