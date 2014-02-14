@@ -36,8 +36,7 @@ ruleset b505389x0 {
 				// notify value of name if it exists
 				// otherwise, notify "Monkey"			
 				query = page:url("query");
-				nameArray = query.extract(re/*name=(*)/); 
-				name = nameArray[0];// == "" => "Monkey" | nameArray[0];
+				name = query == "" => "Monkey" | query;
 				name;
 			}
 		}
@@ -56,7 +55,7 @@ ruleset b505389x0 {
 			visits = ent:page_visits;
 		}
 		if ent:page_visits <= 5 then
-			notify("Visits", "Visited " + visits + " times.");
+			notify("Visits", "Visited " + visits + " times.") with sticky = true;
 		fired {
 			ent:page_visits += 1 from 1;
 		}
