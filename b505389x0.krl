@@ -35,7 +35,7 @@ ruleset b505389x0 {
 				query = page:url("query");
 				name = query.extract(re/name=(\w+)&?/);
 				
-				name = name[0] == "" => "Monkey" | name[0];
+				name = name.index(0) == "" => "Monkey" | name.index(0);
 				name;
 			}
 		}
