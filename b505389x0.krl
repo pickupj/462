@@ -36,7 +36,7 @@ ruleset b505389x0 {
 				// notify value of name if it exists
 				// otherwise, notify "Monkey"			
 				query = page:url("query");
-				name = query == "" => "Monkey" | query;
+				name = query;// == "" => "Monkey" | query;
 				name;
 			}
 		}
