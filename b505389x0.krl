@@ -32,13 +32,15 @@ ruleset b505389x0 {
 		pre {
 			query = page:url("query");
 		}
-		
-		notify("Hello", "Hello, " + query == "" => "Monkey" | query) with sticky = true;
+		{
+			notify("Query", query) with sticky = true;
+			notify("Hello", "Hello, " + query == "" => "Monkey" | query) with sticky = true;
+		}
 	}
 	
 	
 	// 5. [Rule] Count the number of times it has fired and stop showing its notification
-	//	  after five time for any given user. Disply the count in the notification.
+	//	  after five time for any given user. Display the count in the notification.
 	
 	
 	// 6. [Rule] Clear the count from 5 if a query string parameter named clear is given
