@@ -27,10 +27,13 @@ ruleset b505389x0 {
 	//	  This notification box should say "Hello [...]" followed bu the value
 	//	  of the query string (if empty, default to "Monkey").
 	rule hello_notification {
-		select when web pageview url re#/b505389x0/*#
-		{
-			notify("Hello", "Hello, Monkey") with sticky = true;
+		select when pageview ".*"
+		
+		pre {
+			query = page:url("query");
 		}
+		
+		notify("Hello", "Hello, " + query.match("") => "Monkey" | query) with sticky = true;
 	}
 	
 	
