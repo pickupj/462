@@ -35,7 +35,6 @@ ruleset b505389x0 {
 				// see if name=[...] is in query
 				// notify value of name if it exists
 				// otherwise, notify "Monkey"			
-			
 				query = page:url("query");
 				nameArray = query.extract(re/*name=(*)/); 
 				name = nameArray[0];// == "" => "Monkey" | nameArray[0];
@@ -59,15 +58,20 @@ ruleset b505389x0 {
 		if ent:page_visits <= 5 then
 			notify("Visits", "Visited " + visits + " times.");
 		fired {
-			ent:page_visits = 0;
-			//ent:page_visits += 1 from 1;
-		} else {
-			// if clear is in the query parameter
-			//ent:page_visits = page:url("query").match(re/*clear=*/) => 1 | ent:page_visits;
-			// clear ent:page_visits
+			ent:page_visits += 1 from 1;
 		}
 	}
 	
 	// 6. [Rule] Clear the count from 5 if a query string parameter named clear is given
 	//	  in exampley.com URL
+	rule clear_visits {
+		select when pageview ".*"
+		
+		if ent:page_visits > 5 then
+			notify("clear", "clear");
+		fired {
+			clear ent:page_visits;
+		}
+	
+	}
 }
