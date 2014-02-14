@@ -46,9 +46,9 @@ ruleset b505389x0 {
 				
 				nameArray = query.match(re/name=*?/) => page:url("query").extract(re/name=(*)?/) | page:url("query").extract(re/name=(*)/);
 				
-				name = nameArray.length() > 0 => nameArray[0] | "Monkey";
+				name = nameArray.length() > 0 => nameArray.head() | "Monkey";
 				
-				nameArray.length();
+				name;
 			}
 		}
 		{
