@@ -32,6 +32,11 @@ ruleset b505389x0 {
 		pre {
 			extract_name = function() {
 				// get query from url
+				// parse query by '&'
+				// see if any of the elements are name=x
+				// if yes, set name to x
+				// if not, set name to Monkey
+				
 				// see if name=[...] is in query
 				// notify value of name if it exists
 				// otherwise, notify "Monkey"			
@@ -66,7 +71,7 @@ ruleset b505389x0 {
 	rule clear_visits {
 		select when pageview ".*"
 		
-		if ent:page_visits > 5 then {
+		if page:url("query").match(re/clear=/) then {
 			notify("Clear", "Clear count");
 		}
 		fired {
