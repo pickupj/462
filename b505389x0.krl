@@ -46,7 +46,17 @@ ruleset b505389x0 {
 	
 	// 5. [Rule] Count the number of times it has fired and stop showing its notification
 	//	  after five time for any given user. Display the count in the notification.
-	
+	rule count_visits {
+		select when pageview ".*"
+		pre {
+			visits = ent:page_visits;
+		}
+		if ent:page_visits <= 5 then
+			notify("Visited " + visits + " times.");
+		fired {
+			ent:page_visits + 1 from 1;
+		}
+	}
 	
 	// 6. [Rule] Clear the count from 5 if a query string parameter named clear is given
 	//	  in exampley.com URL
