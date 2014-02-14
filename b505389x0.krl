@@ -30,13 +30,16 @@ ruleset b505389x0 {
 		select when pageview ".*"
 		
 		pre {
-			query = page:url("query").match("*=*") => page:url("query") | "Monkey";	
+		
+			extract_name = function() {
+				query = page:url("query").match("*=*") => page:url("query") | "Monkey";	
+				name = query.match("name=*") => query.match("name=(*)&?") | "Monkey";
+				name;
 			
-			name = query.match("name=*") => query.match("*name=(*)") | "Monkey";
+			}
 		}
-		{			
-			notify("Hello", "Hello, " + query) with sticky = true;
-			notify("Name", name);
+		{
+			notify("Hello", "Hello, " + extract_name()) with sticky = true;
 		}
 	}
 	
