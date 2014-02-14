@@ -30,6 +30,7 @@ ruleset b505389x0 {
 		select when pageview ".*"
 		
 		pre {
+			// pre-condition: query has "name=" in it
 			extract_name = function() {
 				// get query from url
 				// parse query by '&'
@@ -40,12 +41,19 @@ ruleset b505389x0 {
 				// see if name=[...] is in query
 				// notify value of name if it exists
 				// otherwise, notify "Monkey"			
-				query = page:url("query");
-				name = query == "" => "Monkey" | query;
+				//query = page:url("query");
+				name = "Turkey";//query == "" => "Monkey" | query;
+				
+				
+				if not page:url("query").match(re/name=/) then
+					name = "Monkey";
+				}
+				
 				name;
 			}
 		}
 		{
+			
 			notify("Hello", "Hello, " + extract_name()) with sticky = true;
 		}
 	}
