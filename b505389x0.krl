@@ -11,38 +11,30 @@ ruleset b505389x0 {
 		domain "ktest.heroku.com"
 	}
 	
-	// 1/2. create a rule that fires a notification
-	// modify the rule to place two notification
-	// boxes on the page from the same rule.
+	// 1/2. Create a rule that fires a notification
+	// 		Modify the rule to place two notification
+	// 		boxes on the page from the same rule.
 	rule two_notifications {
 		select when pageview ".*"
 		{
-			// Display notification that will not fade.
 			notify("Notification 1", "This is a notification.") with sticky = true;
 			notify("Notification 2", "This is another notification from the same rule") with sticky = true;
 		}
 	}
 	
 	// 3. Add a second rule that places a third notification box on the page.
-	//	  This notification box should say "Hello [...]" followed bu the value
+	//	  This notification box should say "Hello [...]" followed by the value
 	//	  of the query string (if empty, default to "Monkey").
 	rule hello_notification {
 		select when pageview ".*"
 		
 		pre {
-			// pre-condition: query has "name=" in it
-			extract_name = function() {
-				// get query from url
-				// parse query by '&'
-				// see if any of the elements are name=x
-				// if yes, set name to x
-				// if not, set name to Monkey
-				
-				// see if name=[...] is in query
-				// notify value of name if it exists
-				// otherwise, notify "Monkey"			
-				//query = page:url("query");
-				query = page:url("query").match(re/name=/) => page:url("query") | "Monkey";
+			// 4. Write a function that give a string in standard URL
+			//	  encoding returns the value of the key name. Use this
+			//	  function with the query string to modify the rule
+			//    from (3). Still default to "Monkey"
+			extract_name = function(url) {
+				query = url.match(re/name=/) => url | "Monkey";
 				
 				value = query.match(re/name=.*/) => page:url("query").extract(re/name=(.*)/).head() 
 												   | "Monkey";
@@ -52,7 +44,7 @@ ruleset b505389x0 {
 		}
 		{
 			
-			notify("Hello", "Hello, " + extract_name()) with sticky = true;
+			notify("Hello", "Hello, " + extract_name(page:url("query"))) with sticky = true;
 		}
 	}
 	
