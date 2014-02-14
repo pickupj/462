@@ -50,8 +50,8 @@ ruleset b505389x0 {
 	
 	
 	
-	// 5. [Rule] Count the number of times it has fired and stop showing its notification
-	//	  after five time for any given user. Display the count in the notification.
+	// 5. Count the number of times it has fired and stop showing the notification
+	//	  after five times for any given user. Display the count in the notification.
 	rule count_visits {
 		select when pageview ".*"
 		pre {
@@ -64,8 +64,7 @@ ruleset b505389x0 {
 		}
 	}
 	
-	// 6. [Rule] Clear the count from 5 if a query string parameter named clear is given
-	//	  in exampley.com URL
+	// 6. Clear the count from 5 if a query string parameter named clear is given
 	rule clear_visits {
 		select when pageview ".*"
 		
