@@ -37,9 +37,12 @@ ruleset b505389x0 {
 				query = url.match(re/name=/) => url | "Monkey";
 				
 				// check that first 5 letters hold name attribute
-				//first = query.substr(0,5).match("name=") => query.extract(re/name=(.*)/).head() | "Monkey";
+				first = query.substr(0,5).match(re/name=/) => query.extract(re/name=(.*)/).head() | "Monkey";
 				// check if name attribute occurs after &
-				value = query.match(re/&name=.*/) => query.extract(re/&name=(.*)/).head() | "Monkey";
+				attr = query.match(re/&name=.*/) => query.extract(re/&name=(.*)/).head() | "Monkey";
+				
+				value = first.match(re/Monkey/) => attr | first;
+				
 				name = value.match(re/&/) => value.split(re/&/).head() | value;
 				name;
 			}
