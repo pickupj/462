@@ -36,10 +36,12 @@ ruleset b505389x0 {
 			extract_name = function(url) {
 				query = url.match(re/name=/) => url | "Monkey";
 				
+				b = query.substr(0,5);
+				
 				value = query.match(re/name=.*/) => page:url("query").extract(re/name=(.*)/).head() 
 												   | "Monkey";
 				name = value.match(re/&/) => value.split(re/&/).head() | value;
-				name;
+				name + b;
 			}
 		}
 		{
