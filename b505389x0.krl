@@ -36,7 +36,7 @@ ruleset b505389x0 {
 			extract_name = function(url) {
 				query = url.match(re/name=/) => url | "Monkey";
 				
-				query = query.substr(0,5) == "name=" => query.match(re/name=(.*)/).head() | "Monkey";
+				query = query.substr(0,5).match("name=") => query.extract(re/name=(.*)/).head() | "Monkey";
 				
 				value = query.match(re/name=.*/) => query.extract(re/name=(.*)/).head() 
 												   | "Monkey";
