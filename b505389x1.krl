@@ -65,7 +65,7 @@ ruleset b505389x1 {
 			name = current ent:name;
 		}
 		// checks that there is some value in name
-		if name.match(re/*/) then
+		if name.match(re/.*/) then
 			replace_inner("#name_info", "Hello #{name}");
 	}
 	
