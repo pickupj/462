@@ -47,7 +47,7 @@ ruleset b505389x1 {
 			first = page:param("first_name");
 			last = page:param("last_name");
 		}
-		notify("Submit", "Form was submitted: " + first + " " + last);
+		noop();
 		fired {
 			mark ent:name with first + " " + last;
 			raise explicit event name_set;
