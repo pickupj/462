@@ -1,8 +1,8 @@
 ruleset b505389x1 {
 	meta {
-		name "notify example"
+		name "Lab 3"
 		description <<
-			Show form
+			Lab 3: Web Rule Exercises
 		>>
 		author "Jessica"
 		logging off
@@ -12,15 +12,19 @@ ruleset b505389x1 {
 		domain "ktest.heroku.com"
 	}
 	
-	rule two_notifications {
+	rule show_form {
 		select when pageview ".*"
+		pre {
+			text = << Hello world >>;
+		}
 		{
+			append('main', text);
 			notify("Notification 1", "This is a notification.") with sticky = true;
 			notify("Notification 2", "This is another notification from the same rule") with sticky = true;
 		}
 	}
 	// 1) Write a rule called show_form that inserts
-	//	  test paragraph (make up the text) in the
+	//	  text paragraph (make up the text) in the
 	//    <div/> element with the ID of main on ktest.heroku.com
 	
 	// 2) Modify the show_form rule from (1) to place
