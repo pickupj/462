@@ -23,7 +23,7 @@ ruleset b505389x1 {
 			//    name, a last name, and a submit button.
 			//    Use the watch() action to watch it for activity
 			
-			form = << <form id="name_form" onsubmit="return false">
+			form = << <form id="name_form" onsubmit="#">
 						First name: <input type="text" name="first_name" />
 						Second name: <input type="text" name="last_name" />
 						<input type="submit" value="Submit" />
@@ -37,18 +37,21 @@ ruleset b505389x1 {
 		}
 	}
 	
-	rule respond_submit is active {
-		select when web submit "#name_form"
-		
-		notify("Submit", "Form was submitted");
-	}
-	
 	// 3) Write a rule that selects on submit and takes
 	//    the first and last name from the form in (3) and
 	//    stores them in entity variables.
+	rule respond_submit is active {
+		select when web submit "#name_form"
+		pre {
+			ent:first_name = page:param("first_name");
+			ent:last_name = page:param("last_name");
+		}
+		notify("Submit", "Form was submitted: " + ent:first_name + " " + ent:last_name);
+	}
+	
 	
 	// 4) Modify the ruleset so that if a first and last name
-	//    have been stord, they are displayed in the page
+	//    have been stored, they are displayed in the page
 	//    (in a paragraph under the form) and if they are not,
 	//    the form is displayed.
 	
