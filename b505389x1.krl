@@ -42,11 +42,15 @@ ruleset b505389x1 {
 	//    stores them in entity variables.
 	rule respond_submit is active {
 		select when web submit "#name_form"
+		
 		pre {
-			ent:first_name = page:param("first_name");
-			ent:last_name = page:param("last_name");
+			first = page:param("first_name");
+			last = page:param("last_name");
 		}
-		notify("Submit", "Form was submitted: " + ent:first_name + " " + ent:last_name);
+		notify("Submit", "Form was submitted: " + first + " " + last);
+		fired {
+			mark ent:name with first + " " + last;
+		}
 	}
 	
 	
