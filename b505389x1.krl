@@ -59,11 +59,14 @@ ruleset b505389x1 {
 	//    (in a paragraph under the form) and if they are not,
 	//    the form is displayed.
 	rule replace_name is active {
-		select when explicit name_set or web pageview ".*"
+		select when explicit name_set 
+					or web pageview ".*"
 		pre {
 			name = current ent:name;
 		}
-		replace_inner("#name_info", "Hello #{name}");
+		// checks that there is some value in name
+		if name.match(re/*/) then
+			replace_inner("#name_info", "Hello #{name}");
 	}
 	
 	
