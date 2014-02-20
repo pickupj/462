@@ -12,21 +12,17 @@ ruleset b505389x1 {
 		domain "ktest.heroku.com"
 	}
 	
+	// 1) Write a rule called show_form that inserts
+	//	  text paragraph (make up the text) in the
+	//    <div/> element with the ID of main on ktest.heroku.com
 	rule show_form {
 		select when pageview ".*"
-		pre {
-			text = << Hello world >>;
-		}
 		{
-			append('main', text);
+			replace_html("#main", "<p>Hello World</p>");
 			notify("Notification 1", "This is a notification.") with sticky = true;
 			notify("Notification 2", "This is another notification from the same rule") with sticky = true;
 		}
 	}
-	// 1) Write a rule called show_form that inserts
-	//	  text paragraph (make up the text) in the
-	//    <div/> element with the ID of main on ktest.heroku.com
-	
 	// 2) Modify the show_form rule from (1) to place
 	//    a simple Web form that has field for a first
 	//    name, a last name, and a submit button.
