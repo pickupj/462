@@ -74,11 +74,11 @@ ruleset b505389x1 {
 				// only attribute
 				only = query.substr(0,8).match(re/clear=1.+/) => "-2" | "1";
 				
-				clear = first.match(re/1/) => first | middle;
-				clear = clear.match(re/1/) => clear | last;
-				clear = clear.match(re/1/) => clear | only;
+				clear_1 = first.match(re/1/) => first | middle;
+				clear_2 = clear_1.match(re/1/) => clear_1 | last;
+				clear_3 = clear_2.match(re/1/) => clear_2 | only;
 				
-				clear;
+				clear_3;
 			}
 		}
 		
