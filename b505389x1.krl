@@ -75,7 +75,7 @@ ruleset b505389x1 {
 		}
 		
 		if clear_name_func(page:url("query")).match(re/Clear/) then {
-			notify("Clear", "Clear count");
+			noop();
 		}
 		fired {
 			clear ent:name;
