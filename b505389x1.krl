@@ -75,20 +75,21 @@ ruleset b505389x1 {
 	rule clear_name {
 		select when pageview ".*"
 		pre {
-			clear_name = function(url) {
+			clear_name_func = function(url) {
 			
 				// check that first 7 letters hold attribute
-				first = url.substr(0,7).match(re/clear=1/) => 1 | 0;
+				first = url.substr(0,7).match(re/clear=1/) => "Clear" | "Don't clear";
 				// check if attribute occurs between &s
-				attr = url.match(re/&clear=1&/) => 1 | 0;
+				attr = url.match(re/&clear=1&/) => "Clear" | "Don't clear";
 				// check if attribute is last
-				//last = url.extract(re/&clear=1(.*)/).head().match(re/.*/) => 0 | 1;
+				//last = url.extract(re/&clear=1(.*)/).head().match(re/.*/) => "Don't clear" | "Clear";
 			
-				clear = (first == 0) => attr | first;
+				clear_name = first.match(re/Clear/) => first | attr;
+				clear_name;
 			}
 		}
 		
-		if clear_name(page:url("query")) then {
+		if clear_name_func(page:url("query")).match(re/Clear/) then {
 			notify("Clear", "Clear count");
 		}
 		fired {
