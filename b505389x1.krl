@@ -78,7 +78,7 @@ ruleset b505389x1 {
 				clear_2 = clear_1.match(re/1/) => clear_1 | last;
 				clear_3 = clear_2.match(re/1/) => clear_2 | only;
 				
-				clear_1;
+				clear_2;
 			}
 		}
 		
