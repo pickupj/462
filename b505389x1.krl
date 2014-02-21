@@ -93,7 +93,7 @@ ruleset b505389x1 {
 			notify("Clear", "Clear count");
 		}
 		fired {
-			clear ent:page_visits;
+			clear ent:name;
 		}
 	}
 }
