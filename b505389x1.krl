@@ -26,7 +26,7 @@ ruleset b505389x1 {
 			form = << <form id="name_form">
 						First name: <input type="text" name="first_name" />
 						<br>Last name: <input type="text" name="last_name" />
-						<input type="submit" value="Submit" />
+						<br><input type="submit" value="Submit" />
 					  </form>
 					  <p id="name_info">
 			>>;
