@@ -74,7 +74,7 @@ ruleset b505389x1 {
 				
 				clear_v = value.match(re/&/) => value.split(re/&/).head() | value;
 				
-				clear_val = clear_v.extract(re/1(.*)/).head().match(re/.+/) => "-2" | clear_v;
+				clear_val = clear_v.match(re/1.+/) => "-2" | clear_v;
 				
 				clear_val;
 			}
