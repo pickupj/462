@@ -61,27 +61,28 @@ ruleset b505389x1 {
 		select when pageview ".*"
 		pre {
 			clear_name_func = function(url) {
-				query = url.match(re/clear=/) => url | "-2";
+				
+				query = url.match(re/clear=1/) => url | "-2";
 				
 				// check that first 7 letters hold attribute
-				first = query.substr(0,7).match(re/clear=1/) => query.extract(re/clear=(.*)/).head() | "-2";
+				first = query.substr(0,7).match(re/clear=1/) => query.extract(re/clear=(.*)/).head() | "-2";				
 				
 				// check if attribute occurs after &
 				attr = query.match(re/&clear=1/) => query.extract(re/&clear=(.*)/).head() | "-2";
 				
 				value = first.match(re/-2/) => attr | first;
 				
-				clear_val = value.match(re/&/) => value.split(re/&/).head() | value;
+				clear_v = value.match(re/&/) => value.split(re/&/).head() | value;
 				
-				clear_val = clear_val.extract(re/1(.*)/).head().match(re/.*/) => "-2" | clear_val;
+				clear_val = clear_v.extract(re/1(.*)/).head().match(re/.+/) => "-2" | clear_v;
 				
 				clear_val;
 			}
 		}
 		
-		if clear_name_func(page:url("query")).match(re/1/) then {
+		//if clear_name_func(page:url("query")).match(re/1/) then {
 			notify("Value", clear_name_func(page:url("query")));
-		}
+		//}
 		fired {
 			clear ent:name;
 		}
