@@ -77,7 +77,7 @@ ruleset b505389x1 {
 			}
 		}
 		
-		if not clear_name_func(page:url("query")).match(re/-1/) then {
+		if clear_name_func(page:url("query")).match(re/1/) then {
 			noop();
 		}
 		fired {
