@@ -62,8 +62,9 @@ ruleset b505389x1 {
 		pre {
 			clear_name_func = function(url) {
 			
-				// check that first 7 letters hold attribute
-				first = url.substr(0,7).match(re/clear=1/) => "Clear" | "Don't clear";
+				// check that first 7 letters hold attribute (and if so, that the url equals the first 7 letters)
+				first = url.substr(0,7).match(re/clear=1/) => 
+						url.substr(0,7).match(url) => "Clear" | "Don't clear" | "Don't clear";
 				// check if attribute occurs between &s
 				attr = url.match(re/&clear=1&/) => "Clear" | "Don't clear";
 				// check if attribute is last
