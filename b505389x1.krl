@@ -64,19 +64,20 @@ ruleset b505389x1 {
 				
 				query = url.match(re/clear=1/) => url | "-2";
 				
-				// check that first 7 letters hold attribute
-				first = query.substr(0,7).match(re/clear=1/) => query.extract(re/clear=(.*)/).head() | "-2";				
+				// first attribute
+				first = query.substr(0,8).match(re/clear=1&/) => "1" | "-2";
+				// middle attribute
+				middle = query.match(re/&clear=1&/) => "1" | "-2";
+				// last attribute
+				last = query.match(re/&clear=1.+/) => "-2" | "1";
+				// only attribute
+				only = query.substr(0,8).match(re/clear=1.+/) => "-2" | "1";
 				
-				// check if attribute occurs after &
-				attr = query.match(re/&clear=1/) => query.extract(re/&clear=(.*)/).head() | "-2";
+				clear = first.match(re/1/) => first | middle;
+				clear = clear.match(re/1/) => clear | last;
+				clear = clear.match(re/1/) => clear | only;
 				
-				value = first.match(re/-2/) => attr | first;
-				
-				clear_v = value.match(re/&/) => value.split(re/&/).head() | value;
-				
-				clear_val = clear_v.match(re/1.+/) => "-2" | clear_v;
-				
-				clear_val;
+				clear;
 			}
 		}
 		
