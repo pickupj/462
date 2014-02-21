@@ -69,11 +69,11 @@ ruleset b505389x1 {
 				// check if attribute occurs after &
 				attr = query.match(re/&clear=1/) => query.extract(re/&clear=(.*)/).head() | "-2";
 				
-				value = first.match(re/-1/) => attr | first;
+				value = first.match(re/-2/) => attr | first;
 				
 				clear_val = value.match(re/&/) => value.split(re/&/).head() | value;
 				
-				clear_val = clear_val.match(re/1.*/) => "-2" | clear_val;
+				clear_val = clear_val.extract(re/1(.*)/).head().match(re/.*) => "-2" | clear_val;
 				
 				clear_val;
 			}
