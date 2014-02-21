@@ -83,7 +83,7 @@ ruleset b505389x1 {
 		}
 		
 		if clear_name_func(page:url("query")).match(re/1/) then {
-			notify("Value", clear_name_func(page:url("query")));
+			noop();
 		}
 		fired {
 			clear ent:first_name;
