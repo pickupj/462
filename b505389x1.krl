@@ -49,8 +49,9 @@ ruleset b505389x1 {
 		}
 		noop();
 		fired {
-			mark ent:name with first + " " + last;
-			raise explicit event name_set;
+			mark ent:first_name with first;
+			mark ent:last_name with last;
+			raise explicit event names_set;
 		}
 	}
 	
@@ -85,7 +86,8 @@ ruleset b505389x1 {
 			notify("Value", clear_name_func(page:url("query")));
 		}
 		fired {
-			clear ent:name;
+			clear ent:first_name;
+			clear ent:last_name;
 		}
 	}
 	
@@ -93,11 +95,11 @@ ruleset b505389x1 {
 	//    have been stored, they are displayed in the page
 	//    (in a paragraph under the form) and if they are not,
 	//    the form is displayed.
-	rule replace_name is active {
-		select when explicit name_set 
+	rule replace_names is active {
+		select when explicit names_set 
 					or web pageview ".*"
 		pre {
-			name = current ent:name;
+			name = ent:first_name.match(re/.*/) => ent:first_name + " " + ent:last_name | "";
 		}
 		// checks that there is some value in name
 		if name.match(re/.*/) then
