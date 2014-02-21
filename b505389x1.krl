@@ -54,21 +54,6 @@ ruleset b505389x1 {
 		}
 	}
 	
-	// 4) Modify the ruleset so that if a first and last name
-	//    have been stored, they are displayed in the page
-	//    (in a paragraph under the form) and if they are not,
-	//    the form is displayed.
-	rule replace_name is active {
-		select when explicit name_set 
-					or web pageview ".*"
-		pre {
-			name = current ent:name;
-		}
-		// checks that there is some value in name
-		if name.match(re/.*/) then
-			replace_inner("#name_info", "Hello #{name}");
-	}
-	
 	
 	// 5) Add a clear rule that clears the names if the query
 	//    string clear=1 is added to the URL
@@ -95,5 +80,20 @@ ruleset b505389x1 {
 		fired {
 			clear ent:name;
 		}
+	}
+	
+	// 4) Modify the ruleset so that if a first and last name
+	//    have been stored, they are displayed in the page
+	//    (in a paragraph under the form) and if they are not,
+	//    the form is displayed.
+	rule replace_name is active {
+		select when explicit name_set 
+					or web pageview ".*"
+		pre {
+			name = current ent:name;
+		}
+		// checks that there is some value in name
+		if name.match(re/.*/) then
+			replace_inner("#name_info", "Hello #{name}");
 	}
 }
