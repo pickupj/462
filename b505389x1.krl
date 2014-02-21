@@ -70,7 +70,8 @@ ruleset b505389x1 {
 				// middle attribute
 				middle = query.match(re/&clear=1&/) => "1" | "-2";
 				// last attribute
-				last = query.match(re/&clear=1.*/) => "-2" | "1";
+				last = query.match(re/&clear=1/) => "-2" |
+						query.match(re/&clear=.+/) => "-2" | "1";
 				// only attribute
 				only = query.substr(0,8).match(re/clear=1.+/) => "-2" | "1";
 				
