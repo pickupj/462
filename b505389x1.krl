@@ -63,15 +63,17 @@ ruleset b505389x1 {
 			clear_name_func = function(url) {
 				query = url.match(re/clear=/) => url | "-1";
 				
-				// check that first 6 letters hold attribute
-				first = query.substr(0,6).match(re/clear=/) => query.extract(re/clear=(.*)/).head() | "-1";
+				// check that first 7 letters hold attribute
+				first = query.substr(0,7).match(re/clear=1/) => query.extract(re/clear=(.*)/).head() | "-1";
 				
 				// check if attribute occurs after &
-				attr = query.match(re/&clear=.*/) => query.extract(re/&clear=(.*)/).head() | "-1";
+				attr = query.match(re/&clear=1/) => query.extract(re/&clear=(.*)/).head() | "-1";
 				
 				value = first.match(re/-1/) => attr | first;
 				
 				clear_val = value.match(re/&/) => value.split(re/&/).head() | value;
+				
+				clear_val = clear_val.match(re/1.*/) => "-1" | clear_val;
 				
 				clear_val;
 			}
