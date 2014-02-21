@@ -72,7 +72,7 @@ ruleset b505389x1 {
 				// last attribute
 				last = query.match(re/&clear=1.*/) => "-2" | "1";
 				// only attribute
-				only = query.substr(0,8).match(re/clear=1.*/) => "-2" | "1";
+				only = query == "clear=1" => "-2" | "1";
 				
 				clear_1 = first.match(re/1/) => first | middle;
 				clear_2 = clear_1.match(re/1/) => clear_1 | last;
