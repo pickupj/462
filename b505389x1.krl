@@ -28,7 +28,7 @@ ruleset b505389x1 {
 						<br>Last name: <input type="text" name="last_name" />
 						<br><input type="submit" value="Submit" />
 					  </form>
-					  <strong><p id="name_info"></strong>
+					  <p id="name_info">
 			>>;
 		}
 		{
@@ -105,6 +105,6 @@ ruleset b505389x1 {
 		}
 		// checks that there is some value in name
 		if name.match(re/.+/) then
-			replace_inner("#name_info", "Hello #{name}");
+			replace_inner("#name_info", "<strong>#{name}</strong>");
 	}
 }
