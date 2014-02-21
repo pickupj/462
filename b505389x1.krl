@@ -61,13 +61,13 @@ ruleset b505389x1 {
 		select when pageview ".*"
 		pre {
 			clear_name_func = function(url) {
-				query = url.match(re/clear=/) => url | "-1";
+				query = url.match(re/clear=/) => url | "-2";
 				
 				// check that first 7 letters hold attribute
-				first = query.substr(0,7).match(re/clear=1/) => query.extract(re/clear=(.*)/).head() | "-1";
+				first = query.substr(0,7).match(re/clear=1/) => query.extract(re/clear=(.*)/).head() | "-2";
 				
 				// check if attribute occurs after &
-				attr = query.match(re/&clear=1/) => query.extract(re/&clear=(.*)/).head() | "-1";
+				attr = query.match(re/&clear=1/) => query.extract(re/&clear=(.*)/).head() | "-2";
 				
 				value = first.match(re/-1/) => attr | first;
 				
