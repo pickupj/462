@@ -72,4 +72,26 @@ ruleset b505389x1 {
 	
 	// 5) Add a clear rule that clears the names if the query
 	//    string clear=1 is added to the URL
+	rule clear_name {
+		select when pageview ".*"
+		pre {
+		
+			clear_name = function(url) {
+			
+				// check that first 7 letters hold attribute
+				first = url.substr(0,7).match(re/clear=1/) => 1 | 0;
+				// check if attribute occurs after &
+				attr = url.match(re/&clear=1/) => 1 | 0;
+			
+				clear = first == 0 => attr | first;
+			}
+		}
+		
+		if clear_name(page:url("query")) == 1 then {
+			notify("Clear", "Clear count");
+		}
+		fired {
+			clear ent:page_visits;
+		}
+	}
 }
