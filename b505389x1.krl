@@ -67,9 +67,10 @@ ruleset b505389x1 {
 				// check if attribute occurs between &s
 				attr = url.match(re/&clear=1&/) => "Clear" | "Don't clear";
 				// check if attribute is last
-				//last = url.extract(re/&clear=1(.*)/).head().match(re/.*/) => "Don't clear" | "Clear";
+				last = url.extract(re/&clear=1(.*)/).head().match(re/.*/) => "Don't clear" | "Clear";
 			
-				clear_name = first.match(re/Clear/) => first | attr;
+				clear_name = first.match(re/Clear/) => first | 
+								attr.match(re/Clear/) => attr | last;
 				clear_name;
 			}
 		}
