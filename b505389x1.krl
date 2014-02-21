@@ -28,7 +28,7 @@ ruleset b505389x1 {
 						<br>Last name: <input type="text" name="last_name" />
 						<br><input type="submit" value="Submit" />
 					  </form>
-					  <p id="name_info">
+					  <strong><p id="name_info"></strong>
 			>>;
 		}
 		{
