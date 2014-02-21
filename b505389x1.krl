@@ -79,7 +79,7 @@ ruleset b505389x1 {
 				clear_3 = clear_2.match(re/1/) => clear_2 | only;
 				
 				//clear_3;
-				first;
+				only;
 			}
 		}
 		
