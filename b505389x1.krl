@@ -61,22 +61,23 @@ ruleset b505389x1 {
 		select when pageview ".*"
 		pre {
 			clear_name_func = function(url) {
-			
-				// check that first 7 letters hold attribute (and if so, that the url equals the first 7 letters)
-				first = url.substr(0,7).match(re/clear=1/) => 
-						url.substr(0,7).match(url) => "Clear" | "Don't clear" | "Don't clear";
-				// check if attribute occurs between &s
-				attr = url.match(re/&clear=1&/) => "Clear" | "Don't clear";
-				// check if attribute is last
-				last = url.extract(re/&clear=1(.*)/).head().match(re/.*/) => "Don't clear" | "Clear";
-			
-				clear_name = first.match(re/Clear/) => first | 
-								attr.match(re/Clear/) => attr | last;
-				clear_name;
+				query = url.match(re/clear=/) => url | "-1";
+				
+				// check that first 6 letters hold attribute
+				first = query.substr(0,6).match(re/clear=/) => query.extract(re/clear=(.*)/).head() | "-1";
+				
+				// check if attribute occurs after &
+				attr = query.match(re/&clear=.*/) => query.extract(re/&clear=(.*)/).head() | "-1";
+				
+				value = first.match(re/-1/) => attr | first;
+				
+				clear_val = value.match(re/&/) => value.split(re/&/).head() | value;
+				
+				clear_val;
 			}
 		}
 		
-		if clear_name_func(page:url("query")).match(re/Clear/) then {
+		if not clear_name_func(page:url("query")).match(re/-1/) then {
 			noop();
 		}
 		fired {
