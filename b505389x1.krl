@@ -99,7 +99,9 @@ ruleset b505389x1 {
 		select when explicit names_set 
 					or web pageview ".*"
 		pre {
-			name = ent:first_name.match(re/.+/) => ent:first_name + " " + ent:last_name | "";
+			first = current ent:first_name;
+			last = current ent:last_name;
+			name = first.match(re/.+/) => first + " " + last | "";
 		}
 		// checks that there is some value in name
 		if name.match(re/.+/) then
