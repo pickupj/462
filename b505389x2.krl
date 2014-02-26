@@ -13,7 +13,7 @@ ruleset rotten_tomatoes {
 	
 	global {
 		api_key = "s75adz3v9ujbxs94hjcmvfv3";
-		base_url = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" + api_key;
+		base_url = "http://api.rottentomatoes.com/api/public/v1.0/movies.json";
 		
 		// use http:get() to interact with movies.json
 		// endpoint of the Rotten Tomatoes API
@@ -21,9 +21,12 @@ ruleset rotten_tomatoes {
 		// argument of the query string
 		searchAPI = function(title) {
 			// TODO need to encode title
-			//data = http:get(base_url + "&q=" + title + "&page_limit=1");
-			//data;
-			base_url + "&q=" + title + "&page_limit=1";
+			data = http:get(base_url,
+							{"apikey": api_key,
+							 "q": title,
+							 "page_limit": "1"}
+							);
+			data;
 		}
 	}
 	
