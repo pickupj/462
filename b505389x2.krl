@@ -17,12 +17,23 @@ ruleset rotten_tomatoes {
 			form = << 
 				<form id="movie_title_form">
 					Title: <input type="text" name="movie_title" />
+					<br><input type="submit" value="Search" />
 				</form>
+				<p id="search_results" />
 			>>;
  		}
  		{
  			SquareTag:inject_styling();
  			CloudRain:createLoadPanel("Rotten Tomamotes", {}, form);
+			watch("#movie_title_form", "submit");
  		}
  	}
+ 	rule respond_search is active {
+		select when submit "#movie_title_form"
+		
+		pre {
+			title = page:param("movie_title");
+		}
+		replace_inner("#search_results", title);
+	}
 }
