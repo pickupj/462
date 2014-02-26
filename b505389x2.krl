@@ -11,16 +11,18 @@ ruleset rotten_tomatoes {
  		use module a41x186  alias SquareTag
 	}
 	
- 	rule HelloWorld is active {
+ 	rule movie_title_form is active {
  		select when web cloudAppSelected
  		pre {
- 			my_html = <<
- 				<h5>Hello, world!</h5>
- 			>>;
+			form = << 
+				<form id="movie_title_form">
+					Title: <input type="text" name="movie_title" />
+				</form>
+			>>;
  		}
  		{
  			SquareTag:inject_styling();
- 			CloudRain:createLoadPanel("Hello World!", {}, my_html);
+ 			CloudRain:createLoadPanel("Rotten Tomamotes", {}, form);
  		}
  	}
 }
