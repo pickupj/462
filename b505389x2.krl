@@ -21,8 +21,9 @@ ruleset rotten_tomatoes {
 		// argument of the query string
 		searchAPI = function(title) {
 			// TODO need to encode title
-			data = http:get(base_url + "&q=" + title + "&page_limit=1");
-			data;
+			//data = http:get(base_url + "&q=" + title + "&page_limit=1");
+			//data;
+			base_url + "&q=" + title + "&page_limit=1";
 		}
 	}
 	
