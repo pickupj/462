@@ -62,8 +62,7 @@ ruleset rotten_tomatoes {
 		
 		pre {
 			title = page:param("movie_title");
-			data = searchAPI(title);
 		}
-		replace_inner("#search_results", data);
+		replace_inner("#search_results", searchAPI(title));
 	}
 }
