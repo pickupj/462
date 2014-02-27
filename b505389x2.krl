@@ -31,17 +31,18 @@ ruleset rotten_tomatoes {
  	rule movie_title_form is active {
  		select when web cloudAppSelected
  		pre {
-			form = << 
-				<form id="movie_title_form">
-					Title: <input type="text" name="movie_title" />
-					<input type="submit" value="Search" />
-				</form>
-				<p id="search_results" />
+			form = <<
+				<div>
 				<p id="thumbnail" />
 				<h2><p id="title" /></h2>
 				<p id="release" />
 				<p id="synopsis" />
 				<p id="critic_ratings" />
+				</div>
+				<form id="movie_title_form">
+					Title: <input type="text" name="movie_title" />
+					<input type="submit" value="Search" />
+				</form>
 			>>;
  		}
  		{
@@ -84,7 +85,7 @@ ruleset rotten_tomatoes {
 			replace_inner("#title", title);
 			replace_inner("#release", release_year);
 			replace_inner("#synopsis", synopsis);
-			replace_inner("#critic_ratings", critic_ratings);
+			replace_inner("#critic_ratings", "Critics: <i>" + critic_ratings + "</i>");
 		}
 	}
 }
