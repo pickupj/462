@@ -77,22 +77,24 @@ ruleset rotten_tomatoes {
 			
 			movie = data.pick("$.movies");
 			
-			thumbnail = movie.pick("$..posters.thumbnail");
-			title = movie.pick("$..title");
-			release_year = movie.pick("$..year");
-			synopsis = data.pick("$.count") > 0 => movie.pick("$..synopsis") | "No results";
-			ratings = movie.pick("$..ratings");
+			count = data.pick("#.count");
+			
+			thumbnail = count > 0 => "<img src='" + movie.pick("$..posters.thumbnail") + "' alt='Could not load image'>" | "";
+			title = count > 0 => movie.pick("$..title") | "";
+			release_info = count > 0 => movie.pick("$..year") + " - " + movie.pick("$..mpaa_rating") | "";
+			synopsis = count > 0 => movie.pick("$..synopsis") | "No results";
+			critics_consensus = count > 0 => "<i>" + movie.pick("$..critics_consensus") + " - critics consensus</i>" | "";
+			critic_ratings = count > 0 => "Critics: <i>(" + movie.pick("$..ratings.critics_score") + ") " + movie.pick("$..ratings.critics_rating") + "</i>" | "";
+			audience_ratings = count > 0 => "Audience: <i>(" + movie.pick("$..ratingsaudience_score") + ") " + movie.pick("$..ratingsaudience_rating") + "</i>" | "";
 		}
 		{
-			if (data.pick("$.count") > 0) {
-				replace_inner("#thumbnail", "<img src='" + thumbnail + "' alt='Could not load image'>");
-				replace_inner("#title", title);
-				replace_inner("#release", release_year + " - " + movie.pick("$..mpaa_rating"));
-				replace_inner("#critics_consensus", "<i>" + movie.pick("$..critics_consensus") + " - critics consensus</i>");
-				replace_inner("#critic_ratings", "Critics: <i>(" + ratings.pick("$.critics_score") + ") " + ratings.pick("$.critics_rating") + "</i>");
-				replace_inner("#audience_ratings", "Audience: <i>(" + ratings.pick("$.audience_score") + ") " + ratings.pick("$.audience_rating") + "</i>");
-			}
+			replace_inner("#thumbnail", thumbnail);
+			replace_inner("#title", title);
+			replace_inner("#release", release_info);
 			replace_inner("#synopsis", synopsis);
+			replace_inner("#critics_consensus", critics_consensus);
+			replace_inner("#critic_ratings", critic_ratings);
+			replace_inner("#audience_ratings", audience_ratings);
 		}
 	}
 }
