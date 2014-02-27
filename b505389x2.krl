@@ -38,7 +38,7 @@ ruleset rotten_tomatoes {
 				</form>
 				<p id="search_results" />
 				<p id="thumbnail" />
-				<p id="title" />
+				<h2><p id="title" /></h2>
 				<p id="release" />
 				<p id="synopsis" />
 				<p id="critic_ratings" />
@@ -74,9 +74,9 @@ ruleset rotten_tomatoes {
 			
 			thumbnail = movie.pick("$..posters.thumbnail");
 			title = movie.pick("$..title");
-			release_year = move.pick("$..year");
-			synopsis = data.pick("$.movies..synopsis");
-			critic_ratings = move.pick("$..ratings.critics_rating");
+			release_year = movie.pick("$..year");
+			synopsis = movie.pick("$..synopsis");
+			critic_ratings = movie.pick("$..ratings.critics_rating");
 		}
 		{
 			//replace_inner("#search_results", data);
