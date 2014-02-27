@@ -85,7 +85,7 @@ ruleset rotten_tomatoes {
 			synopsis = count > 0 => movie.pick("$..synopsis") | "No results";
 			critics_consensus = count > 0 => "<i>" + movie.pick("$..critics_consensus") + " - critics consensus</i>" | "";
 			critic_ratings = count > 0 => "Critics: <i>(" + movie.pick("$..ratings.critics_score") + ") " + movie.pick("$..ratings.critics_rating") + "</i>" | "";
-			audience_ratings = count > 0 => "Audience: <i>(" + movie.pick("$..ratingsaudience_score") + ") " + movie.pick("$..ratingsaudience_rating") + "</i>" | "";
+			audience_ratings = count > 0 => "Audience: <i>(" + movie.pick("$..ratings.audience_score") + ") " + movie.pick("$..ratings.audience_rating") + "</i>" | "";
 		}
 		{
 			replace_inner("#thumbnail", thumbnail);
