@@ -80,17 +80,19 @@ ruleset rotten_tomatoes {
 			thumbnail = movie.pick("$..posters.thumbnail");
 			title = movie.pick("$..title");
 			release_year = movie.pick("$..year");
-			synopsis = movie.pick("$..synopsis");
+			synopsis = data.pick("$.count") > 0 => movie.pick("$..synopsis") | "No results";
 			ratings = movie.pick("$..ratings");
 		}
 		{
-			replace_inner("#thumbnail", "<img src='" + thumbnail + "' alt='Could not load image'>");
-			replace_inner("#title", title);
-			replace_inner("#release", release_year + " - " + movie.pick("$..mpaa_rating"));
-			replace_inner("#critics_consensus", "<i>" + movie.pick("$..critics_consensus") + " - critics consensus</i>");
+			if (data.pick("$.count") > 0) {
+				replace_inner("#thumbnail", "<img src='" + thumbnail + "' alt='Could not load image'>");
+				replace_inner("#title", title);
+				replace_inner("#release", release_year + " - " + movie.pick("$..mpaa_rating"));
+				replace_inner("#critics_consensus", "<i>" + movie.pick("$..critics_consensus") + " - critics consensus</i>");
+				replace_inner("#critic_ratings", "Critics: <i>(" + ratings.pick("$.critics_score") + ") " + ratings.pick("$.critics_rating") + "</i>");
+				replace_inner("#audience_ratings", "Audience: <i>(" + ratings.pick("$.audience_score") + ") " + ratings.pick("$.audience_rating") + "</i>");
+			}
 			replace_inner("#synopsis", synopsis);
-			replace_inner("#critic_ratings", "Critics: <i>(" + ratings.pick("$.critics_score") + ") " + ratings.pick("$.critics_rating") + "</i>");
-			replace_inner("#audience_ratings", "Audience: <i>(" + ratings.pick("$.audience_score") + ") " + ratings.pick("$.audience_rating") + "</i>");
 		}
 	}
 }
