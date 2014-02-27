@@ -37,9 +37,9 @@ ruleset rotten_tomatoes {
 				<br><text id="release" /><text id="rating" />
 				<i><p id="critics_consensus" /></i>
 				<p id="synopsis" />
-				<br><text id="critic_score" /> <text id="critic_rating" />
-				<br><text id="audience_score" /><text id="audience_rating" />
-				<br>
+				<p><text id="critic_score" /> <text id="critic_rating" /></p>
+				<p><text id="audience_score" /> <text id="audience_rating" /></p>
+				<br><br>
 				<form id="movie_title_form">
 					Title: <input type="text" name="movie_title" />
 					<input type="submit" value="Search" />
@@ -96,13 +96,11 @@ ruleset rotten_tomatoes {
 			replace_inner("#synopsis", synopsis);
 			replace_inner("#critics_consensus", critics_consensus);
 			replace_inner("#critic_score", critic_score);
-			prepend("#critic_score", "Critics: <i>");
+			prepend("#critic_score", "Critics: ");
 			replace_inner("#critic_rating", critic_rating);
-			append("#critic_rating", "</i>");
 			replace_inner("#audience_score", audience_score);
-			prepend("#audience_score", "Audience: <i>");
+			prepend("#audience_score", "Audience: ");
 			replace_inner("#audience_rating", audience_rating);
-			append("#audience_rating", "</i>");
 		}
 	}
 }
