@@ -77,12 +77,13 @@ ruleset rotten_tomatoes {
 			movie = data.pick("$.movies");
 			
 			count = data.pick("$.total");
+			error = "Oh no. It appears that no movies match your search for " + title + ". Maybe you can make one!";
 			
 			thumbnail = count > 0 => "<img src='" + movie.pick("$..posters.thumbnail") + "' alt='Could not load image'>" | "";
 			title = count > 0 => movie.pick("$..title") | "";
 			release = count > 0 => movie.pick("$..year") + " - " | "";
 			rating = count > 0 => movie.pick("$..mpaa_rating") | "";
-			synopsis = count > 0 => movie.pick("$..synopsis") | "No results";
+			synopsis = count > 0 => movie.pick("$..synopsis") | error;
 			critics_consensus = count > 0 => movie.pick("$..critics_consensus") | "";
 			critic_score = count > 0 => "Critics: " + movie.pick("$..ratings.critics_score") | "";
 			critic_rating = count > 0 => movie.pick("$..ratings.critics_rating") | "";
