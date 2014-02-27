@@ -90,6 +90,7 @@ ruleset rotten_tomatoes {
 			audience_rating = count > 0 => movie.pick("$..ratings.audience_rating") + "</i>" | "";
 		}
 		{
+			set_element_attr("#results", "hidden", "false");
 			replace_inner("#thumbnail", thumbnail);
 			replace_inner("#title", title);
 			replace_inner("#release", release);
