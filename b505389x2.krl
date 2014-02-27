@@ -19,7 +19,9 @@ ruleset rotten_tomatoes {
 		// argument of the query string
 		searchAPI = function(title) {
 			query = http:get("http://api.rottentomatoes.com/api/public/v1.0/movies.json",
-					 { "apikey": "s75adz3v9ujbxs94hjcmvfv3"
+					 { "apikey": "s75adz3v9ujbxs94hjcmvfv3",
+					   "q": title,
+					   "page_limit": "1"
 					 });
 			query.pick("$.content");
 		};
