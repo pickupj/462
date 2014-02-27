@@ -68,18 +68,18 @@ ruleset rotten_tomatoes {
 		
 		pre {
 			title = page:param("movie_title");
-			data = searchAPI(title);//.decode();
+			data = searchAPI(title).decode();
 			
 			movie = data.pick("$.movies");
 			
 			thumbnail = movie.pick("$..posters.thumbnail");
 			title = movie.pick("$..title");
 			release_year = move.pick("$..year");
-			synopsis = movie.pick("$..synopsis");
+			synopsis = data.pick("$.movies..synopsis");
 			critic_ratings = move.pick("$..ratings.critics_rating");
 		}
 		{
-			replace_inner("#search_results", data);
+			//replace_inner("#search_results", data);
 			replace_inner("#thumbnail", thumbnail);
 			replace_inner("#title", title);
 			replace_inner("#release", release_year);
