@@ -36,8 +36,10 @@ ruleset rotten_tomatoes {
 				<p id="thumbnail" />
 				<h2><p id="title" /></h2>
 				<p id="release" />
+				<p id="rating" />
 				<p id="synopsis" />
 				<p id="critic_ratings" />
+				<p id="audience_ratings" />
 				</div>
 				<form id="movie_title_form">
 					Title: <input type="text" name="movie_title" />
@@ -77,15 +79,17 @@ ruleset rotten_tomatoes {
 			title = movie.pick("$..title");
 			release_year = movie.pick("$..year");
 			synopsis = movie.pick("$..synopsis");
-			critic_ratings = movie.pick("$..ratings.critics_rating");
+			ratings = movie.pick("$..ratings");
 		}
 		{
 			//replace_inner("#search_results", data);
 			replace_inner("#thumbnail", "<img src='" + thumbnail + "' alt='Could not load image'>");
 			replace_inner("#title", title);
 			replace_inner("#release", release_year);
+			replace_inner("#rating", movie.pick("$..mpaa_rating");
 			replace_inner("#synopsis", synopsis);
-			replace_inner("#critic_ratings", "Critics: <i>" + critic_ratings + "</i>");
+			replace_inner("#critic_ratings", "Critics: <i>(" + ratings.pick("$.critics_score") + ") + ratings.pick("$.critics_rating") + "</i>");
+			replace_inner("#audience_ratings", "Audience: <i>(" + ratings.pick("$.audience_score") + ") + ratings.pick("$.audience_rating") + "</i>");
 		}
 	}
 }
