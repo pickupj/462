@@ -37,7 +37,7 @@ ruleset rotten_tomatoes {
 				<h2><div id="title" /></h2>
 				<p id="release" />
 				<p id="rating" />
-				<p id="critic_consensus" />
+				<p id="critics_consensus" />
 				<p id="synopsis" />
 				<p id="critic_ratings" />
 				<p id="audience_ratings" />
@@ -87,7 +87,7 @@ ruleset rotten_tomatoes {
 			replace_inner("#thumbnail", "<img src='" + thumbnail + "' alt='Could not load image'>");
 			replace_inner("#title", title);
 			replace_inner("#release", release_year + " - " + movie.pick("$..mpaa_rating"));
-			replace_inner("#critic_consensus", movie.pick("$..critic_consensus"));
+			replace_inner("#critics_consensus", movie.pick("$..critics_consensus"));
 			replace_inner("#synopsis", synopsis);
 			replace_inner("#critic_ratings", "Critics: <i>(" + ratings.pick("$.critics_score") + ") " + ratings.pick("$.critics_rating") + "</i>");
 			replace_inner("#audience_ratings", "Audience: <i>(" + ratings.pick("$.audience_score") + ") " + ratings.pick("$.audience_rating") + "</i>");
