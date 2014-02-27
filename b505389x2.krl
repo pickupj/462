@@ -17,8 +17,8 @@ ruleset rotten_tomatoes {
 		// endpoint of the Rotten Tomatoes API
 		// Be sure to include your API key as the first
 		// argument of the query string
-		searchAPI = http:get("http://api.rottentomatoes.com/api/public/v1.0/movies.json",
-							 { "apikey": "s75adz3v9ujbxs94hjcmvfv3" });
+		searchAPI = http:get("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=s75adz3v9ujbxs94hjcmvfv3",
+							 {});
 	}
 	
 	// display a form that asks the user for a movie title
