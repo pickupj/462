@@ -66,9 +66,13 @@ ruleset rotten_tomatoes {
 			title = page:param("movie_title");
 			data = searchAPI(title).decode();
 			
-			synopsis = data.pick("$.movies..synopsis");
+			movie = data.pick("$.movies");
+			
+			title = movie.pick("$..title");			
+			synopsis = movie.pick("$..synopsis");
+			
 		}
-		replace_inner("#search_results", data.pick("$.movies.title"));
+		replace_inner("#search_results", title);
 		replace_inner("#synopsis", synopsis);
 	}
 }
