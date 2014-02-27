@@ -33,8 +33,8 @@ ruleset rotten_tomatoes {
  		pre {
 			form = <<
 				<div>
-				<p id="thumbnail" />
-				<h2><p id="title" /></h2>
+				<div id="thumbnail" />
+				<h2><div id="title" /></h2>
 				<p id="release" />
 				<p id="rating" />
 				<p id="synopsis" />
@@ -82,7 +82,6 @@ ruleset rotten_tomatoes {
 			ratings = movie.pick("$..ratings");
 		}
 		{
-			//replace_inner("#search_results", data);
 			replace_inner("#thumbnail", "<img src='" + thumbnail + "' alt='Could not load image'>");
 			replace_inner("#title", title);
 			replace_inner("#release", release_year);
