@@ -37,6 +37,7 @@ ruleset rotten_tomatoes {
 					<input type="submit" value="Search" />
 				</form>
 				<p id="search_results" />
+				<p id="synopsis" />
 			>>;
  		}
  		{
@@ -63,8 +64,11 @@ ruleset rotten_tomatoes {
 		
 		pre {
 			title = page:param("movie_title");
-			data = searchAPI(title);
+			data = searchAPI(title).decode();
+			
+			synopsis = data.movies[0].synopsis;
 		}
-		replace_inner("#search_results", data);
+		replace_inner("#search_results", data.movies[0].title);
+		replace_inner("#synopsis", synopsis);
 	}
 }
