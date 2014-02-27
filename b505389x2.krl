@@ -18,8 +18,9 @@ ruleset rotten_tomatoes {
 		// Be sure to include your API key as the first
 		// argument of the query string
 		searchAPI = function(title) {
-			query = http:get("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=s75adz3v9ujbxs94hjcmvfv3",
-					 {});
+			query = http:get("http://api.rottentomatoes.com/api/public/v1.0/movies.json",
+					 { "apikey": "s75adz3v9ujbxs94hjcmvfv3"
+					 });
 			query.pick("$.content");
 		};
 	}
