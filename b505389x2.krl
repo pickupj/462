@@ -77,7 +77,7 @@ ruleset rotten_tomatoes {
 			
 			movie = data.pick("$.movies");
 			
-			count = data.pick("$.count");
+			count = data.pick("$.total");
 			
 			thumbnail = count > 0 => "<img src='" + movie.pick("$..posters.thumbnail") + "' alt='Could not load image'>" | "";
 			title = count > 0 => movie.pick("$..title") | "";
