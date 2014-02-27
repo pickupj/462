@@ -34,7 +34,7 @@ ruleset rotten_tomatoes {
 			html = <<
 				<div id="thumbnail" />
 				<h2><text id="title" /></h2>
-				<br><text id="release" /><text id="rating" />
+				<text id="release" /><text id="rating" />
 				<i><p id="critics_consensus" /></i>
 				<p id="synopsis" />
 				<p><text id="critic_score" /> <text id="critic_rating" /></p>
