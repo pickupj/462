@@ -32,15 +32,14 @@ ruleset rotten_tomatoes {
  		select when web cloudAppSelected
  		pre {
 			html = <<
-				<div>
+				<div id="results" hidden>
 				<div id="thumbnail" />
 				<h2><div id="title" /></h2>
-				<p id="release" />
-				<p id="rating" />
+				<br><div id="release" /> - <div id="rating" />
 				<i><p id="critics_consensus" /></i>
 				<p id="synopsis" />
-				<p id="critic_ratings" />
-				<p id="audience_ratings" />
+				<br>Critics: <i><div id="critic_score" /> <div id="critic_rating" /></i>
+				<br>Audience: <i><div id="audience_score" /> <div id="audience_rating" /></i>
 				</div>
 				<br>
 				<form id="movie_title_form">
@@ -81,20 +80,26 @@ ruleset rotten_tomatoes {
 			
 			thumbnail = count > 0 => "<img src='" + movie.pick("$..posters.thumbnail") + "' alt='Could not load image'>" | "";
 			title = count > 0 => movie.pick("$..title") | "";
-			release_info = count > 0 => movie.pick("$..year") + " - " + movie.pick("$..mpaa_rating") | "";
+			release = count > 0 => movie.pick("$..year") | "";
+			rating = count > 0 => movie.pick("$..mpaa_rating") | "";
 			synopsis = count > 0 => movie.pick("$..synopsis") | "No results";
 			critics_consensus = count > 0 => movie.pick("$..critics_consensus") | "";
-			critic_ratings = count > 0 => "Critics: <i>(" + movie.pick("$..ratings.critics_score") + ") " + movie.pick("$..ratings.critics_rating") + "</i>" | "";
-			audience_ratings = count > 0 => "Audience: <i>(" + movie.pick("$..ratings.audience_score") + ") " + movie.pick("$..ratings.audience_rating") + "</i>" | "";
+			critic_score = count > 0 => movie.pick("$..ratings.critics_score") | "";
+			critic_rating = count > 0 => movie.pick("$..ratings.critics_rating") + "</i>" | "";
+			audience_score = count > 0 => movie.pick("$..ratings.audience_score") | "";
+			audience_rating = count > 0 => movie.pick("$..ratings.audience_rating") + "</i>" | "";
 		}
 		{
 			replace_inner("#thumbnail", thumbnail);
 			replace_inner("#title", title);
-			replace_inner("#release", release_info);
+			replace_inner("#release", release);
+			replace_inner("#rating", rating);
 			replace_inner("#synopsis", synopsis);
 			replace_inner("#critics_consensus", critics_consensus);
-			replace_inner("#critic_ratings", critic_ratings);
-			replace_inner("#audience_ratings", audience_ratings);
+			replace_inner("#critic_score", critic_score);
+			replace_inner("#critic_rating", critic_rating);
+			replace_inner("#audience_score", audience_score);
+			replace_inner("#audience_rating", audience_rating);
 		}
 	}
 }
