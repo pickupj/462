@@ -91,6 +91,7 @@ ruleset rotten_tomatoes {
 		}
 		{
 			set_element_attr("#results", "hidden", "false");
+			set_element_attr("#results", "show", "true");
 			replace_inner("#thumbnail", thumbnail);
 			replace_inner("#title", title);
 			replace_inner("#release", release);
