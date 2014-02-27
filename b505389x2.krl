@@ -86,10 +86,10 @@ ruleset rotten_tomatoes {
 			replace_inner("#thumbnail", "<img src='" + thumbnail + "' alt='Could not load image'>");
 			replace_inner("#title", title);
 			replace_inner("#release", release_year);
-			replace_inner("#rating", movie.pick("$..mpaa_rating");
+			replace_inner("#rating", movie.pick("$..mpaa_rating"));
 			replace_inner("#synopsis", synopsis);
-			replace_inner("#critic_ratings", "Critics: <i>(" + ratings.pick("$.critics_score") + ") + ratings.pick("$.critics_rating") + "</i>");
-			replace_inner("#audience_ratings", "Audience: <i>(" + ratings.pick("$.audience_score") + ") + ratings.pick("$.audience_rating") + "</i>");
+			replace_inner("#critic_ratings", "Critics: <i>(" + ratings.pick("$.critics_score") + ") " + ratings.pick("$.critics_rating") + "</i>");
+			replace_inner("#audience_ratings", "Audience: <i>(" + ratings.pick("$.audience_score") + ") " + ratings.pick("$.audience_rating") + "</i>");
 		}
 	}
 }
