@@ -34,11 +34,11 @@ ruleset rotten_tomatoes {
 			html = <<
 				<div id="thumbnail" />
 				<h2><div id="title" /></h2>
-				<br><text id="release" />  <text id="rating" />
+				<br><text id="release" /><text id="rating" />
 				<i><p id="critics_consensus" /></i>
 				<p id="synopsis" />
-				<br>Critics: <i><div id="critic_score" /> <div id="critic_rating" /></i>
-				<br>Audience: <i><div id="audience_score" /> <div id="audience_rating" /></i>
+				<br><i><text id="critic_score" /> <text id="critic_rating" /></i>
+				<br><i><text id="audience_score" /><text id="audience_rating" /></i>
 				<br>
 				<form id="movie_title_form">
 					Title: <input type="text" name="movie_title" />
@@ -91,12 +91,15 @@ ruleset rotten_tomatoes {
 			replace_inner("#thumbnail", thumbnail);
 			replace_inner("#title", title);
 			replace_inner("#release", release);
+			append("#release", " - ");
 			replace_inner("#rating", rating);
 			replace_inner("#synopsis", synopsis);
 			replace_inner("#critics_consensus", critics_consensus);
 			replace_inner("#critic_score", critic_score);
+			prepend("#critic_score", "Critics: ");
 			replace_inner("#critic_rating", critic_rating);
 			replace_inner("#audience_score", audience_score);
+			prepend("#audience_score", "Audience: ");
 			replace_inner("#audience_rating", audience_rating);
 		}
 	}
