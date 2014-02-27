@@ -37,7 +37,11 @@ ruleset rotten_tomatoes {
 					<input type="submit" value="Search" />
 				</form>
 				<p id="search_results" />
+				<p id="thumbnail" />
+				<p id="title" />
+				<p id="release" />
 				<p id="synopsis" />
+				<p id="critic_ratings" />
 			>>;
  		}
  		{
@@ -66,13 +70,19 @@ ruleset rotten_tomatoes {
 			title = page:param("movie_title");
 			data = searchAPI(title);//.decode();
 			
-			//movie = data.pick("$.movies");
+			movie = data.pick("$.movies");
 			
-			//title = movie.pick("$..title");			
-			//synopsis = movie.pick("$..synopsis");
-			
+			thumbnail = movie.pick("$..posters.thumbnail");
+			title = movie.pick("$..title");
+			release_year = move.pick("$..year");
+			synopsis = movie.pick("$..synopsis");
+			critic_ratings = move.pick("$..ratings.critics_rating");
 		}
 		replace_inner("#search_results", data);
-		//replace_inner("#synopsis", synopsis);
+		replace_inner("#thumbnail", thumbnail);
+		replace_inner("#title", title);
+		replace_inner("#release", release_year);
+		replace_inner("#synopsis", synopsis);
+		replace_inner("#critic_ratings", critic_ratings);
 	}
 }
