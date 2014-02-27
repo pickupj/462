@@ -80,7 +80,7 @@ ruleset rotten_tomatoes {
 		}
 		{
 			//replace_inner("#search_results", data);
-			replace_inner("#thumbnail", thumbnail);
+			replace_inner("#thumbnail", "<img src='" + thumbnail + "' alt='Could not load image'>");
 			replace_inner("#title", title);
 			replace_inner("#release", release_year);
 			replace_inner("#synopsis", synopsis);
