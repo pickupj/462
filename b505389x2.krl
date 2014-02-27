@@ -32,15 +32,13 @@ ruleset rotten_tomatoes {
  		select when web cloudAppSelected
  		pre {
 			html = <<
-				<div id="results" hidden>
 				<div id="thumbnail" />
 				<h2><div id="title" /></h2>
-				<br><div id="release" /> - <div id="rating" />
+				<br><text id="release" />  <text id="rating" />
 				<i><p id="critics_consensus" /></i>
 				<p id="synopsis" />
 				<br>Critics: <i><div id="critic_score" /> <div id="critic_rating" /></i>
 				<br>Audience: <i><div id="audience_score" /> <div id="audience_rating" /></i>
-				</div>
 				<br>
 				<form id="movie_title_form">
 					Title: <input type="text" name="movie_title" />
@@ -90,8 +88,6 @@ ruleset rotten_tomatoes {
 			audience_rating = count > 0 => movie.pick("$..ratings.audience_rating") + "</i>" | "";
 		}
 		{
-			set_element_attr("#results", "hidden", "false");
-			set_element_attr("#results", "show", "true");
 			replace_inner("#thumbnail", thumbnail);
 			replace_inner("#title", title);
 			replace_inner("#release", release);
