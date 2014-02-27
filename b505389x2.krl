@@ -33,7 +33,7 @@ ruleset rotten_tomatoes {
  		pre {
 			html = <<
 				<div id="thumbnail" />
-				<h2><div id="title" /></h2>
+				<h2><text id="title" /></h2>
 				<br><text id="release" /><text id="rating" />
 				<i><p id="critics_consensus" /></i>
 				<p id="synopsis" />
