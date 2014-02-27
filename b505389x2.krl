@@ -72,7 +72,7 @@ ruleset rotten_tomatoes {
 			synopsis = movie.pick("$..synopsis");
 			
 		}
-		replace_inner("#search_results", title);
+		replace_inner("#search_results", data.encode());
 		replace_inner("#synopsis", synopsis);
 	}
 }
