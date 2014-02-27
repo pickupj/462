@@ -41,6 +41,7 @@ ruleset rotten_tomatoes {
 				<p><text id="critic_score" /> <text id="critic_rating" /></p>
 				<p><text id="audience_score" /> <text id="audience_rating" /></p>
 				</div>
+				<br>
 				<form id="movie_title_form">
 					Title: <input type="text" name="movie_title" />
 					<input type="submit" value="Search" />
