@@ -37,7 +37,7 @@ ruleset rotten_tomatoes {
 				<h2><div id="title" /></h2>
 				<p id="release" />
 				<p id="rating" />
-				<p id="critics_consensus" />
+				<i><p id="critics_consensus" /></i>
 				<p id="synopsis" />
 				<p id="critic_ratings" />
 				<p id="audience_ratings" />
@@ -83,7 +83,7 @@ ruleset rotten_tomatoes {
 			title = count > 0 => movie.pick("$..title") | "";
 			release_info = count > 0 => movie.pick("$..year") + " - " + movie.pick("$..mpaa_rating") | "";
 			synopsis = count > 0 => movie.pick("$..synopsis") | "No results";
-			critics_consensus = count > 0 => "<i>" + movie.pick("$..critics_consensus") + " - critics consensus</i>" | "";
+			critics_consensus = count > 0 => movie.pick("$..critics_consensus") | "";
 			critic_ratings = count > 0 => "Critics: <i>(" + movie.pick("$..ratings.critics_score") + ") " + movie.pick("$..ratings.critics_rating") + "</i>" | "";
 			audience_ratings = count > 0 => "Audience: <i>(" + movie.pick("$..ratings.audience_score") + ") " + movie.pick("$..ratings.audience_rating") + "</i>" | "";
 		}
