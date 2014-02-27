@@ -77,7 +77,7 @@ ruleset rotten_tomatoes {
 			movie = data.pick("$.movies");
 			
 			count = data.pick("$.total");
-			error = "Oh no. It appears that no movies match your search for " + title + ". Maybe you can make one!";
+			error = "<h3>Oh no. It appears that no movies match your search for " + title + ".</h3>";
 			
 			thumbnail = count > 0 => "<img src='" + movie.pick("$..posters.thumbnail") + "' alt='Could not load image'>" | "";
 			title = count > 0 => movie.pick("$..title") | "";
