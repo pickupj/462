@@ -37,8 +37,8 @@ ruleset rotten_tomatoes {
 				<br><text id="release" /><text id="rating" />
 				<i><p id="critics_consensus" /></i>
 				<p id="synopsis" />
-				<br><i><text id="critic_score" /> <text id="critic_rating" /></i>
-				<br><i><text id="audience_score" /><text id="audience_rating" /></i>
+				<br><text id="critic_score" /> <text id="critic_rating" />
+				<br><text id="audience_score" /><text id="audience_rating" />
 				<br>
 				<form id="movie_title_form">
 					Title: <input type="text" name="movie_title" />
@@ -83,9 +83,9 @@ ruleset rotten_tomatoes {
 			synopsis = count > 0 => movie.pick("$..synopsis") | "No results";
 			critics_consensus = count > 0 => movie.pick("$..critics_consensus") | "";
 			critic_score = count > 0 => movie.pick("$..ratings.critics_score") | "";
-			critic_rating = count > 0 => movie.pick("$..ratings.critics_rating") + "</i>" | "";
+			critic_rating = count > 0 => movie.pick("$..ratings.critics_rating") | "";
 			audience_score = count > 0 => movie.pick("$..ratings.audience_score") | "";
-			audience_rating = count > 0 => movie.pick("$..ratings.audience_rating") + "</i>" | "";
+			audience_rating = count > 0 => movie.pick("$..ratings.audience_rating") | "";
 		}
 		{
 			replace_inner("#thumbnail", thumbnail);
@@ -96,11 +96,13 @@ ruleset rotten_tomatoes {
 			replace_inner("#synopsis", synopsis);
 			replace_inner("#critics_consensus", critics_consensus);
 			replace_inner("#critic_score", critic_score);
-			prepend("#critic_score", "Critics: ");
+			prepend("#critic_score", "Critics: <i>");
 			replace_inner("#critic_rating", critic_rating);
+			append("#critic_rating", "</i>");
 			replace_inner("#audience_score", audience_score);
-			prepend("#audience_score", "Audience: ");
+			prepend("#audience_score", "Audience: <i>");
 			replace_inner("#audience_rating", audience_rating);
+			append("#audience_rating", "</i>");
 		}
 	}
 }
