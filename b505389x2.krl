@@ -32,14 +32,15 @@ ruleset rotten_tomatoes {
  		select when web cloudAppSelected
  		pre {
 			html = <<
-				<div id="thumbnail" />
+				<div id="results" style="padding-left:20px">
+				<div id="thumbnail" style="width=200px" align="center"/>
 				<h2><text id="title" /></h2>
 				<text id="release" /><text id="rating" />
 				<i><p id="critics_consensus" /></i>
 				<p id="synopsis" />
 				<p><text id="critic_score" /> <text id="critic_rating" /></p>
 				<p><text id="audience_score" /> <text id="audience_rating" /></p>
-				<br><br>
+				</div>
 				<form id="movie_title_form">
 					Title: <input type="text" name="movie_title" />
 					<input type="submit" value="Search" />
