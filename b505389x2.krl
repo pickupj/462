@@ -78,11 +78,13 @@ ruleset rotten_tomatoes {
 			synopsis = movie.pick("$..synopsis");
 			critic_ratings = move.pick("$..ratings.critics_rating");
 		}
-		replace_inner("#search_results", data);
-		replace_inner("#thumbnail", thumbnail);
-		replace_inner("#title", title);
-		replace_inner("#release", release_year);
-		replace_inner("#synopsis", synopsis);
-		replace_inner("#critic_ratings", critic_ratings);
+		{
+			replace_inner("#search_results", data);
+			replace_inner("#thumbnail", thumbnail);
+			replace_inner("#title", title);
+			replace_inner("#release", release_year);
+			replace_inner("#synopsis", synopsis);
+			replace_inner("#critic_ratings", critic_ratings);
+		}
 	}
 }
