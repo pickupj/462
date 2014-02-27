@@ -22,9 +22,7 @@ ruleset rotten_tomatoes {
 		searchAPI = function(title) {
 			// TODO need to encode title
 			data = http:get(base_url,
-							{"apikey": api_key,
-							 "q": title,
-							 "page_limit": "1"}
+							{"apikey": api_key}
 							);
 			data;
 		}
