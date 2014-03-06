@@ -23,7 +23,7 @@ ruleset foursquare {
 			shout = event:attr("shout");
 			createdAt = event:attr("createdAt");
  		}
-		noop();
+ 		replace_inner("#test", "Event fired");
 		fired {
 			mark ent:venue_name with venue_name;
 			mark ent:city with city;
@@ -43,6 +43,7 @@ ruleset foursquare {
  		
 			html = <<
 				<h1>Checkin</h1>
+				<div id="test"></div>
 				<p id="venue_name">Name</p>
 				<p id="city">City</p>
 				<p id="shout">Shout</p>
