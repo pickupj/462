@@ -20,15 +20,15 @@ ruleset foursquare {
 			// extract values from event
 			venue_name = "Venue";//event:attr("venue");
 			city = "city";//event:attr("city");
-			shout = event:attr("shout");
-			createdAt = event:attr("createdAt");
+			//shout = event:attr("shout");
+			//createdAt = event:attr("createdAt");
  		}
  		replace_inner("#test", "Event fired");
 		fired {
 			mark ent:venue_name with venue_name;
 			mark ent:city with city;
-			mark ent:shout with shout;
-			mark ent:created with createdAt;
+			//mark ent:shout with shout;
+			//mark ent:created with createdAt;
 		}
  	}
  	
