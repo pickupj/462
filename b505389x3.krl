@@ -42,10 +42,10 @@ ruleset foursquare {
  		
 			html = <<
 				<h3>Checkin</h3>
-				<p id="venue_name">Name</p>
-				<p id="city">City</p>
-				<p id="shout">Shout</p>
-				<p id="created">Created</p>
+				<div>Venue: <text id="venue_name" /></div>
+				<div>City: <text id="city" /></div>
+				<div>Shout: <text id="shout" />Shout</div>
+				<div>Created: <text id="created" /></div>
 			>>;
  		}
  		{
