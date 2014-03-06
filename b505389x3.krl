@@ -18,8 +18,8 @@ ruleset foursquare {
  		// store venue name, city, shout, and createdAt event attributes in entity variables
  		pre {
 			// extract values from event
-			venue_name = event:attr("venue");
-			city = event:attr("city");
+			venue_name = "Venue";//event:attr("venue");
+			city = "city";//event:attr("city");
 			shout = event:attr("shout");
 			createdAt = event:attr("createdAt");
  		}
