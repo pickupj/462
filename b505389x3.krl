@@ -20,7 +20,7 @@ ruleset foursquare {
 			// extract values from event
 			checkin = event:attr("checkin").decode();
 			venue_name = checkin.pick("$..venue.name");
-			city = checkin.pick("$..venue.city");
+			city = checkin.pick("$..location.city");
 			shout = checkin.pick("$..shout", true).head();
 			createdAt = checkin.pick("$..createdAt");
  		}
