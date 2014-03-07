@@ -18,13 +18,16 @@ ruleset foursquare {
  		// store venue name, city, shout, and createdAt event attributes in entity variables
  		pre {
 			// extract values from event
+			eventX = event;
+			checkin = event:attr("checkin");
 			venue_name = event:attr("venue");
 			city = event:attr("city");
 			shout = event:attr("shout");
 			createdAt = event:attr("createdAt");
  		}
  		//noop();
- 		replace_inner("#event", event);
+ 		replace_inner("#event", eventX);
+ 		replace_inner("#checkin", checkin);
 		fired {
 			mark ent:venue_name with venue_name;
 			mark ent:city with city;
@@ -49,6 +52,7 @@ ruleset foursquare {
 				<div>City: <text id="city" /></div>
 				<div>Shout: <text id="shout" /></div>
 				<div>Created: <text id="created" /></div>
+				<div id="checkin"></div>
 			>>;
  		}
  		{
