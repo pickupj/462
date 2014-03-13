@@ -23,14 +23,17 @@ ruleset location_data {
  		select when pds new_location_data
  		pre {
 			key = event:attr("key");
-			event = event:attr("value");
+			value = event:attr("value");
  		}
  		
- 		noop();
+ 		send_directive(key) with body = { 
+										  "key": "location",
+										  "value": value
+										}
  		// store the data in the value attribute in a map entity variable
  		// using the value of the key attribute as the key for the map
  		fired {
-			set ent:mymap{key} event;
+			set ent:mymap{key} value;
  		}
  	}
 }

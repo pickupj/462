@@ -30,7 +30,10 @@ ruleset foursquare {
 						"createdAt": createdAt
 					  };
  		}
- 		noop();
+ 		
+ 		send_directive(venue_name) with body = { "key": "checkin",
+												 "value": venue_name };
+ 		
 		fired {
 			mark ent:venue_name with venue_name;
 			mark ent:city with city;
