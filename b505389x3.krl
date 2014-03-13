@@ -23,6 +23,11 @@ ruleset foursquare {
 			city = checkin.pick("$..location.city");
 			shout = checkin.pick("$..shout", true).head();
 			createdAt = checkin.pick("$..createdAt");
+			val_map = { "venue":     venue_name,
+						"city" :     city,
+						"shout" :    shout,
+						"createdAt": createdAt
+					  };
  		}
  		noop();
 		fired {
@@ -30,6 +35,13 @@ ruleset foursquare {
 			mark ent:city with city;
 			mark ent:shout with shout;
 			mark ent:created with createdAt;
+			
+			// raise a pds:new_location_data
+			// key: fs_checkin
+			// value: map with checkin info 
+			//raise pds event "new_location_data"
+			//	with key = "fs_checkin"
+			//	 and value = val_map;
 		}
  	}
  	
