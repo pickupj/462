@@ -35,7 +35,7 @@ ruleset foursquare {
 												 "value": venue_name };
  		
 		fired {
-			mark ent:checkin with checkin;
+			mark ent:checkin with checkin.encode();
 			mark ent:venue_name with venue_name;
 			mark ent:city with city;
 			mark ent:shout with shout;
