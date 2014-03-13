@@ -21,7 +21,7 @@ ruleset examine_location {
 	rule show_fs_location is active {
  		select when web cloudAppSelected
  		pre {
-			info = LocationData:get_location_data();
+			info = LocationData:get_location_data("fs_checkin");
 			venue_name = info{"venue"};
 			city = info{"city"};
 			shout = info{"shout"};
@@ -46,20 +46,4 @@ ruleset examine_location {
  			replace_inner("#created", created);
  		}
 	}
-	
-	// Listens for pds:new_location_data (attributes: key & value)
- 	rule add_location_item is active {
- 		select when pds new_location_data
- 		pre {
-			key = event:attr("key");
-			event = event:attr("value");
- 		}
- 		
- 		noop();
- 		// store the data in the value attribute in a map entity variable
- 		// using the value of the key attribute as the key for the map
- 		fired {
-			set ent:mymap{key} event;
- 		}
- 	}
 }

@@ -23,7 +23,8 @@ ruleset foursquare {
 			city = checkin.pick("$..location.city");
 			shout = checkin.pick("$..shout", true).head();
 			createdAt = checkin.pick("$..createdAt");
-			val_map = { "venue":     venue_name,
+			val_map = { 
+						"venue":     venue_name,
 						"city" :     city,
 						"shout" :    shout,
 						"createdAt": createdAt
