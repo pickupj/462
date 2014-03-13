@@ -39,9 +39,9 @@ ruleset foursquare {
 			// raise a pds:new_location_data
 			// key: fs_checkin
 			// value: map with checkin info 
-			raise pds event "new_location_data"
-				with key = "fs_checkin"
-				 and value = val_map;
+			//raise pds event "new_location_data"
+			//	with key = "fs_checkin"
+			//	 and value = val_map;
 		}
  	}
  	
