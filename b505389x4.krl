@@ -6,10 +6,7 @@ ruleset location_data {
 		>>
 		author "Jessica"
 		logging off
-		
- 		use module a169x701 alias CloudRain
- 		use module a41x186  alias SquareTag
- 		
+
  		provides get_location_data
 	}
 	
