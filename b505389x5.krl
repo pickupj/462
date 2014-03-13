@@ -10,8 +10,7 @@ ruleset examine_location {
  		use module a169x701 alias CloudRain
  		use module a41x186  alias SquareTag
  		// use location_data ruleset as a module
- 		//use module b505389x4 alias LocationData
- 		use module location_data alias LocationData
+ 		use module b505389x4 alias LocationData
 	}
 	
 	global {
