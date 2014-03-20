@@ -44,8 +44,6 @@ ruleset foursquare {
 			mark ent:city with city;
 			mark ent:shout with shout;
 			mark ent:created with createdAt;
-			mark ent:lat with latitude;
-			mark ent:long with longitude;
 			
 			// raise a pds:new_location_data
 			// key: fs_checkin
@@ -65,8 +63,6 @@ ruleset foursquare {
 			city = current ent:city;
 			shout = current ent:shout;
 			created = current ent:created;
-			lat = current ent:lat;
-			long = current ent:long;
  		
 			html = <<
 				<h3>Checkin</h3>
@@ -76,8 +72,6 @@ ruleset foursquare {
 				<div>Shout: <text id="shout" /></div>
 				<div>Created: <text id="created" /></div>
 				<div id="checkin"></div>
-				<div id="lat"></div>
-				<div id="long"></div>
 			>>;
  		}
  		{
@@ -88,8 +82,6 @@ ruleset foursquare {
  			replace_inner("#city", city);
  			replace_inner("#shout", shout);
  			replace_inner("#created", created);
- 			replace_inner("#lat", lat);
- 			replace_inner("#long", long);
  		}
  	}
 }
