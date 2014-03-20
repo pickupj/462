@@ -8,8 +8,8 @@ ruleset twilio {
 		logging off
 		
 		// twilio phone number: (385) 235-7271
-		key twilio { "account_sid": "ACc046efdd610af3c0cce3549c59c6dfbe", //AC0059220c90e4ba5eb876cff8b7bbf6cb
-					 "auth_token": "4a4edc01d88d7a2a29515d8b73296743"     //1f5194b817106e46e5796ba477a52f84
+		key twilio { "account_sid": "AC0059220c90e4ba5eb876cff8b7bbf6cb", //ACc046efdd610af3c0cce3549c59c6dfbe
+					 "auth_token": "1f5194b817106e46e5796ba477a52f84"     //4a4edc01d88d7a2a29515d8b73296743
 				   }
 
 		use module a8x115 alias twilio with twiliokeys = keys:twilio()
