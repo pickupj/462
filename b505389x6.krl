@@ -14,7 +14,22 @@ ruleset analyze_location {
 	
 	global {
 	}
-	
+	rule show_nearby is active {
+ 		select when web cloudAppSelected
+ 		pre {
+			info = ent:page_visits;
+ 		
+			html = <<
+				<h3>Count</h3>
+				<div>Visits <div id="visits"></div></div>
+			>>;
+ 		}
+ 		{
+ 			SquareTag:inject_styling();
+ 			CloudRain:createLoadPanel("Distance", {}, html);
+ 			replace_inner("#visits", info);
+ 		}
+	}
 	// Listens for the new_current:location event 
 	rule nearby is active {
  		select when location new_current
@@ -51,6 +66,7 @@ ruleset analyze_location {
  		}
  		noop();
  		fired {
+			ent:page_visits += 1 from 1;
 			raise explicit event "location_nearby" with distance = distance;
  		}
 	}
