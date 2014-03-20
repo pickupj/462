@@ -1,13 +1,20 @@
-ruleset nearby {
+ruleset twilio {
 	meta {
-		name "Analyze Location"
+		name "Twilio"
 		description <<
-			Lab 7: Event Network Exercise (Semantic Translation)
+			Lab 7: Event Network Exercise (Semantic Translation) - Twilio notification
 		>>
 		author "Jessica"
 		logging off
 		
- 		use module a169x701 alias CloudRain
+		// twilio phone number: (385) 235-7271
+		key twilio { "account_sid": "ACc046efdd610af3c0cce3549c59c6dfbe", //AC0059220c90e4ba5eb876cff8b7bbf6cb
+					 "auth_token": "4a4edc01d88d7a2a29515d8b73296743"     //1f5194b817106e46e5796ba477a52f84
+				   }
+
+		use module a8x115 alias twilio with twiliokeys = keys:twilio()
+		
+		use module a169x701 alias CloudRain
  		use module a41x186  alias SquareTag
 	}
 	
@@ -20,7 +27,8 @@ ruleset nearby {
  		pre {
 			distance = event:attr("distance");
  		}
- 		noop();
+ 		if distance < 5 then
+			twilio:send_sms("8017030552","3852357271",distance);
  		fired {
 			mark ent:distance with distance;
 		}
