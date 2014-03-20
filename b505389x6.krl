@@ -50,9 +50,7 @@ ruleset analyze_location {
 			>>;
  		}
  		{
- 			SquareTag:inject_styling();
- 			CloudRain:createLoadPanel("Distance", {}, html);
-			replace_inner("#distance", distance);
+			raise explicit event "location_nearby" with distance = distance;
  		}
 	}
 }
