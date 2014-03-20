@@ -43,13 +43,16 @@ ruleset analyze_location {
 			// g_c_d(long1, pi/2 - lat1, long2, pi/2 - lat2, r(opt))
 			distance = math:great_circle_distance(old_lng, r90 - old_lat, new_lng, r90 - new_lat, earth_radius);
 			
+			// less than 10 kilometers
+			event_name = distance < 10 => "location_nearby" | "location_far";
+			
 			html = <<
 				<h3>Distance</h3>
 				<div id="message"></div>
 				<div id="distance"></div>
 			>>;
  		}
- 		//if distance < 5 then
+ 		if distance < 5 then
 			noop();
  		fired {
 			mark ent:o_lat with old_lat;
@@ -58,7 +61,7 @@ ruleset analyze_location {
 			mark ent:n_lng with new_lng;
 			mark ent:distance with distance;
 			
-			raise explicit event "location_nearby" with distance = distance;
+			raise explicit event event_name with distance = distance;
  		}
 	}
 	
