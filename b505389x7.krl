@@ -27,8 +27,7 @@ ruleset twilio {
  		pre {
 			distance = event:attr("distance");
  		}
- 		if distance < 5 then
-			twilio:send_sms("8017030552","3852357271",distance);
+		twilio:send_sms("8017030552","3852357271",distance);
  		fired {
 			mark ent:distance with distance;
 		}

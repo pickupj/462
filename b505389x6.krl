@@ -49,7 +49,8 @@ ruleset analyze_location {
 				<div id="distance"></div>
 			>>;
  		}
- 		noop();
+ 		if distance < 5 then
+			noop();
  		fired {
 			mark ent:o_lat with old_lat;
 			mark ent:o_lng with old_lng;
