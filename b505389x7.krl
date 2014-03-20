@@ -28,8 +28,8 @@ ruleset twilio {
 			distance = event:attr("distance");
  		}
  		{
-			send_directive(venue_name) with body = { "key": "nearby",
-													 "value": distance };
+			send_directive("distance") with body = { "key": "nearby",
+												   "value": distance };
 			twilio:send_sms("8017030552","3852357271","You are " + distance + " away from your last checkin");
 		}
 		fired {
