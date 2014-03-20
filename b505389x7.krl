@@ -27,9 +27,14 @@ ruleset twilio {
  		pre {
 			distance = event:attr("distance");
  		}
-		twilio:send_sms("8017030552","3852357271","You are " + distance + " away from your last checkin");
- 		fired {
-			mark ent:distance with distance;
+ 		{
+			send_directive(venue_name) with body = { "key": "nearby",
+													 "value": distance };
+			twilio:send_sms("8017030552","3852357271","You are " + distance + " away from your last checkin");
+			
+			fired {
+				mark ent:distance with distance;
+			}
 		}
 	}
 	rule show_nearby is active {
