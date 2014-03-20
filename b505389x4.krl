@@ -16,12 +16,14 @@ ruleset location_data {
 			value = ent:mymap{key};
 			value;
 		}
-		get_long = function() {
-			lng = current ent:long;
+		get_long = function(key) {
+			value = ent:mymap{key};
+			lng = value{"lng"};
 			lng;
 		}
 		get_lat = function() {
-			lat = current ent:lat;
+			value = ent:mymap{key};
+			lat = value{"lat"};
 			lat;
 		}
 	}
@@ -32,8 +34,6 @@ ruleset location_data {
  		pre {
 			key = event:attr("key");
 			value = event:attr("value");
-			lat = value{"lat"};
-			long = value{"lng"};
  		}
  		
  		send_directive(key) with body = { 
@@ -44,8 +44,6 @@ ruleset location_data {
  		// using the value of the key attribute as the key for the map
  		fired {
 			set ent:mymap{key} value;
-			mark ent:lat with lat;
-			mark ent:long with long;
  		}
  	}
 }

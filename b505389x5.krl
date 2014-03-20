@@ -24,8 +24,8 @@ ruleset examine_location {
 			city = info{"city"};
 			shout = info{"shout"};
 			created = info{"createdAt"};
-			lat = LocationData:get_lat();
-			long = LocationData:get_long();
+			lat = LocationData:get_lat("fs_checkin");
+			long = LocationData:get_long("fs_checkin");
  		
 			html = <<
 				<h3>Checkin</h3>
