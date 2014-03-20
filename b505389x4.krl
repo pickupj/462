@@ -17,10 +17,12 @@ ruleset location_data {
 			value;
 		}
 		get_long = function() {
-			ent:long;
+			lng = current ent:long;
+			lng;
 		}
 		get_lat = function() {
-			ent:lat;
+			lat = current ent:lat;
+			lat;
 		}
 	}
 	
@@ -42,8 +44,8 @@ ruleset location_data {
  		// using the value of the key attribute as the key for the map
  		fired {
 			set ent:mymap{key} value;
-			set ent:lat lat;
-			set ent:long long;
+			mark ent:lat with lat;
+			mark ent:long with long;
  		}
  	}
 }
