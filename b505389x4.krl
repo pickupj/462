@@ -21,7 +21,7 @@ ruleset location_data {
 			lng = value{"lng"};
 			lng;
 		}
-		get_lat = function() {
+		get_lat = function(key) {
 			value = ent:mymap{key};
 			lat = value{"lat"};
 			lat;
