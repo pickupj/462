@@ -49,7 +49,8 @@ ruleset analyze_location {
 				<div id="distance"></div>
 			>>;
  		}
- 		{
+ 		noop();
+ 		fired {
 			raise explicit event "location_nearby" with distance = distance;
  		}
 	}
