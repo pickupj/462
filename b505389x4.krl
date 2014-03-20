@@ -7,7 +7,7 @@ ruleset location_data {
 		author "Jessica"
 		logging off
 
- 		provides get_location_data
+ 		provides get_location_data, get_long, get_lat
 	}
 	
 	global {
@@ -15,6 +15,12 @@ ruleset location_data {
 		get_location_data = function(key) {
 			value = ent:mymap{key};
 			value;
+		}
+		get_long = function() {
+			ent:long;
+		}
+		get_lat = function() {
+			ent:lat;
 		}
 	}
 	
@@ -24,6 +30,8 @@ ruleset location_data {
  		pre {
 			key = event:attr("key");
 			value = event:attr("value");
+			lat = value{"lat"};
+			long = value{"lng"};
  		}
  		
  		send_directive(key) with body = { 
@@ -34,6 +42,8 @@ ruleset location_data {
  		// using the value of the key attribute as the key for the map
  		fired {
 			set ent:mymap{key} value;
+			set ent:lat lat;
+			set ent:long long;
  		}
  	}
 }

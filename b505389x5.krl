@@ -9,7 +9,6 @@ ruleset examine_location {
 		
  		use module a169x701 alias CloudRain
  		use module a41x186  alias SquareTag
- 		// use location_data ruleset as a module
  		use module b505389x4 alias LocationData
 	}
 	
@@ -25,6 +24,8 @@ ruleset examine_location {
 			city = info{"city"};
 			shout = info{"shout"};
 			created = info{"createdAt"};
+			lat = LocationData:get_lat();
+			long = LocationData:get_long();
  		
 			html = <<
 				<h3>Checkin</h3>
@@ -34,6 +35,8 @@ ruleset examine_location {
 				<div>Shout: <text id="shout" /></div>
 				<div>Created: <text id="created" /></div>
 				<div id="checkin"></div>
+				<div id="lat"></div>
+				<div id="long"></div>
 			>>;
  		}
  		{
@@ -43,6 +46,8 @@ ruleset examine_location {
  			replace_inner("#city", city);
  			replace_inner("#shout", shout);
  			replace_inner("#created", created);
+ 			replace_inner("#lat", lat);
+ 			replace_inner("#long", long);
  		}
 	}
 }
