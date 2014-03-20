@@ -28,7 +28,7 @@ ruleset analyze_location {
 			old_lng = LocationData:get_long("fs_checkin");
 			// point b
 			new_lat = event:attr("lat");
-			new_lng = event:attr("long");
+			new_lng = event:attr("lng");
 			
 			// convert coordinates to radians
 			old_lat = math:deg2rad(old_lat);
