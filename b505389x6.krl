@@ -53,43 +53,8 @@ ruleset analyze_location {
 			>>;
  		}
 		noop();
- 		fired {
-			mark ent:o_lat with old_lat;
-			mark ent:o_lng with old_lng;
-			mark ent:n_lat with new_lat;
-			mark ent:n_lng with new_lng;
-			mark ent:distance with distance;
-			
+ 		fired {			
 			raise explicit event event_name with distance = distance;
- 		}
-	}
-	
-	rule show_data is active {
- 		select when web cloudAppSelected
- 		pre {
-			lat1 = current ent:o_lat;
-			lng1 = current ent:o_lng;
-			lat2 = current ent:n_lat;
-			lng2 = current ent:n_lng;
-			distance = current ent:distance;
- 		
-			html = <<
-				<h3>Nearby</h3>
-				<div id="distance"></div>
-				<div id="lt1"></div>
-				<div id="lg1"></div>
-				<div id="lt2"></div>
-				<div id="lg2"></div>
-			>>;
- 		}
- 		{
- 			SquareTag:inject_styling();
- 			CloudRain:createLoadPanel("Distance", {}, html);
- 			replace_inner("#distance", distance);
- 			replace_inner("#lt1", lat1);
- 			replace_inner("#lg1", lng1);
- 			replace_inner("#lt2", lat2);
- 			replace_inner("#lg2", lng2);
  		}
 	}
 }

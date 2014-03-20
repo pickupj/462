@@ -31,24 +31,5 @@ ruleset twilio {
 			send_directive("distance") with body = distance;
 			twilio:send_sms("8017030552","3852357271","You are " + distance + " away from your last checkin");
 		}
-		fired {
-			mark ent:distance with distance;
-		}
-	}
-	rule show_nearby is active {
- 		select when web cloudAppSelected
- 		pre {
-			info = current ent:distance;
- 		
-			html = <<
-				<h3>Nearby</h3>
-				<div>Distance: <div id="distance"></div></div>
-			>>;
- 		}
- 		{
- 			SquareTag:inject_styling();
- 			CloudRain:createLoadPanel("Distance", {}, html);
- 			replace_inner("#distance", info);
- 		}
 	}
 }
