@@ -65,6 +65,8 @@ ruleset foursquare {
 			city = current ent:city;
 			shout = current ent:shout;
 			created = current ent:created;
+			lat = current ent:lat;
+			long = current ent:long;
  		
 			html = <<
 				<h3>Checkin</h3>
