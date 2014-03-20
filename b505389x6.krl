@@ -51,10 +51,11 @@ ruleset analyze_location {
  		}
  		noop();
  		fired {
-			mark o_lat with old_lat;
-			mark o_lng with old_lng;
-			mark n_lat with new_lat;
-			mark n_lng with new_lng;
+			mark ent:o_lat with old_lat;
+			mark ent:o_lng with old_lng;
+			mark ent:n_lat with new_lat;
+			mark ent:n_lng with new_lng;
+			
 			raise explicit event "location_nearby" with distance = distance;
  		}
 	}
