@@ -69,6 +69,7 @@ ruleset analyze_location {
 			lng1 = current ent:o_lng;
 			lat2 = current ent:n_lat;
 			lng2 = current ent:n_lng;
+			distance = current ent:distance;
  		
 			html = <<
 				<h3>Nearby</h3>
