@@ -35,7 +35,7 @@ ruleset foursquare {
 												 "value": venue_name };
  		
 		fired {
-			//mark ent:checkin with checkin.encode();
+			mark ent:checkin with checkin.encode();
 			mark ent:venue_name with venue_name;
 			mark ent:city with city;
 			mark ent:shout with shout;
@@ -54,7 +54,7 @@ ruleset foursquare {
  	rule display_checkin {
  		select when web cloudAppSelected
  		pre {
-			//checkin = current ent:checkin;
+			checkin = current ent:checkin;
 			venue_name = current ent:venue_name;
 			city = current ent:city;
 			shout = current ent:shout;
@@ -73,7 +73,7 @@ ruleset foursquare {
  		{
  			SquareTag:inject_styling();
  			CloudRain:createLoadPanel("Foursquare Checkin", {}, html);
- 			//replace_inner("#event", checkin);
+ 			replace_inner("#event", checkin);
  			replace_inner("#venue_name", venue_name);
  			replace_inner("#city", city);
  			replace_inner("#shout", shout);
