@@ -23,8 +23,8 @@ ruleset foursquare {
 			city = checkin.pick("$..location.city");
 			shout = checkin.pick("$..shout", true).head();
 			createdAt = checkin.pick("$..createdAt");
-			latitude = checkin.pick("$..location.lat");
-			longitude = checkin.pick("$..location.lng");
+			latitude = checkin.pick("$..venue.location.lat");
+			longitude = checkin.pick("$..venue.location.lng");
 			val_map = { 
 						"venue":     venue_name,
 						"city" :     city,
