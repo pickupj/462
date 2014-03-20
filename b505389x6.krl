@@ -56,6 +56,7 @@ ruleset analyze_location {
 			mark ent:o_lng with old_lng;
 			mark ent:n_lat with new_lat;
 			mark ent:n_lng with new_lng;
+			mark ent:distance with distance;
 			
 			raise explicit event "location_nearby" with distance = distance;
  		}
@@ -71,6 +72,7 @@ ruleset analyze_location {
  		
 			html = <<
 				<h3>Nearby</h3>
+				<div id="distance"></div>
 				<div id="lt1"></div>
 				<div id="lg1"></div>
 				<div id="lt2"></div>
@@ -80,6 +82,7 @@ ruleset analyze_location {
  		{
  			SquareTag:inject_styling();
  			CloudRain:createLoadPanel("Distance", {}, html);
+ 			replace_inner("#distance", distance);
  			replace_inner("#lt1", lat1);
  			replace_inner("#lg1", lng1);
  			replace_inner("#lt2", lat2);
