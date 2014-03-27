@@ -13,7 +13,7 @@ ruleset foursquare {
 	}
 	
 	global {
-		subscription_1 = { "rids": "b505964x0",
+		subscription_1 = { "rid": "b505964x0",
 						   "cid":  "10B1719E-B5D4-11E3-9DD4-B1C8E71C24E1"
 						 };
 		subscription_2 = { "rids": "b505965x0",

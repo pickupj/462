@@ -9,21 +9,18 @@ ruleset location_notification {
 		
 		use module a169x701  alias CloudRain
  		use module a41x186   alias SquareTag
- 		use module b505389x4 alias LocationData
 	}
 	
 	// Listens for the location notification event
 	rule location_catch is active {
  		select when location notification
  		pre {
-			location = LocationData:get_location_data("fs_checkin");
-			x = event:attr("location");
+			location = event:attr("location");
 			y = "fired";
  		}
 		send_directive("location_catch") with body = "rule fired";
  		fired {
 			mark ent:location with location;
-			mark ent:x with x;
 			mark ent:y with y;
 		}
 	}
