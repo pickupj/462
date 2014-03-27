@@ -17,7 +17,7 @@ ruleset location_notification {
  		pre {
  		
  		}
-		send_directive("location catch") with body = "rule fired";
+		send_directive("location_catch") with body = "rule fired";
  		fired {
 			mark ent:location with "rule fired"
 		}
