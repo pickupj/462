@@ -34,11 +34,12 @@ ruleset foursquare {
 				rid = subscriber{"rid"};
 				cid = subscriber{"cid"};
 				location = current ent:val_map;
+				map = subscriber;
 			}
 			{
 				send_directive(rid) with body = { "key": rid,
 												"value": cid };
-				event:send(subscriber, "location", "notification")
+				event:send(map, "location", "notification")
 					with attrs = { "_rids": rid,
 					               "location": location };
 			}
