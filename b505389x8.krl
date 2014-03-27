@@ -20,7 +20,7 @@ ruleset location_notification {
  		}
 		send_directive("location_catch") with body = "rule fired";
  		fired {
-			mark ent:location with "rule_fired";
+			mark ent:location with location;
 		}
 	}
 	
