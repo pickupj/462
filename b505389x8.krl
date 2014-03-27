@@ -16,7 +16,7 @@ ruleset location_notification {
  		select when location notification
  		pre {
 			location = event:attr("location");
-			y = "fired";
+			y = "location_catch";
  		}
 		send_directive("location_catch") with body = "rule fired";
  		fired {
