@@ -21,9 +21,41 @@ ruleset foursquare {
 						 };
 						 
 		subscribers = [ subscription_1, subscription_2 ];
-		
-		create_value_map = function(checkin) {
+	}
+	 	
+	// A dispatch rule that uses foreach to loop over the subscription map
+	// and the event:send() action to send a location:notification event
+	// to each subscriber
+	rule dispatch_location_notification is active {
+		select when foursquare checkin
+			foreach subscribers setting (subscriber)
+		 		pre {
+					// extract values from event
+					checkin = event:attr("checkin").decode();
+					venue_name = checkin.pick("$..venue.name");
+					city = checkin.pick("$..location.city");
+					shout = checkin.pick("$..shout", true).head();
+					createdAt = checkin.pick("$..createdAt");
+					
+					val_map = { 
+						"venue":     venue_name,
+						"city" :     city,
+						"shout" :    shout,
+						"createdAt": createdAt,
+					};
+				}
+				event:send(subscriber, "location", "notification")
+					with attrs = {"_rids": subscriber{"rid"},
+								  "location": val_map.encode() };
+	}
+ 	
+	// Listen for "foursquare checkin" event
+ 	rule process_fs_checkin is active {
+ 		select when foursquare checkin
+ 		// store venue name, city, shout, and createdAt event attributes in entity variables
+ 		pre {
 			// extract values from event
+			checkin = event:attr("checkin").decode();
 			venue_name = checkin.pick("$..venue.name");
 			city = checkin.pick("$..location.city");
 			shout = checkin.pick("$..shout", true).head();
@@ -38,34 +70,6 @@ ruleset foursquare {
 						"lat":       latitude,
 						"lng":       longitude
 					  };
-			val_map;
-		}
-	}
-	 	
-
- 	
-	// A dispatch rule that uses foreach to loop over the subscription map
-	// and the event:send() action to send a location:notification event
-	// to each subscriber
-	rule dispatch_location_notification is active {
-		select when foursquare checkin
-			foreach subscribers setting (subscriber)
-			    pre {
-					val_map = create_value_map(event:attr("checkin").decode());
-				}
-				event:send(subscriber, "location", "notification")
-					with attrs = {"_rids": subscriber{"rid"},
-								  "location": val_map.encode() };
-	}
- 	
-	// Listen for "foursquare checkin" event
- 	rule process_fs_checkin is active {
- 		select when foursquare checkin
- 		// store venue name, city, shout, and createdAt event attributes in entity variables
- 		pre {
-			// extract values from event
-			checkin = event:attr("checkin").decode();
-			val_map = create_value_map(event:attr("checkin").decode());
  		}
  		
  		send_directive(venue_name) with body = { "key": "checkin",
