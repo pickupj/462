@@ -9,6 +9,7 @@ ruleset location_notification {
 		
 		use module a169x701  alias CloudRain
  		use module a41x186   alias SquareTag
+ 		use module b505389x4 alias LocationData
 	}
 	
 	// Listens for the location notification event
@@ -27,11 +28,10 @@ ruleset location_notification {
 	 	select when web cloudAppSelected
  		pre {
 			info = current ent:location;
-			checkin = info.decode();
-			venue_name = checkin.pick("$..venue.name");
-			city = checkin.pick("$..location.city");
-			shout = checkin.pick("$..shout", true).head();
-			createdAt = checkin.pick("$..createdAt");
+			venue_name = info{"venue"};
+			city = info{"city"};
+			shout = info{"shout"};
+			created = info{"createdAt"};
  		
 			html = <<
 				<h3>Checkin</h3>
@@ -40,6 +40,7 @@ ruleset location_notification {
 				<div>City: <text id="city" /></div>
 				<div>Shout: <text id="shout" /></div>
 				<div>Created: <text id="created" /></div>
+				<div id="checkin"></div>
 			>>;
  		}
  		{
@@ -48,7 +49,7 @@ ruleset location_notification {
  			replace_inner("#venue_name", venue_name);
  			replace_inner("#city", city);
  			replace_inner("#shout", shout);
- 			replace_inner("#created", createdAt);
+ 			replace_inner("#created", created);
  		}
 	}
 }

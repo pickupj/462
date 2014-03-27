@@ -21,16 +21,9 @@ ruleset foursquare {
 						 };
 						 
 		subscribers = [ subscription_1, subscription_2 ];
-	}
-	 	
- 	
-	// Listen for "foursquare checkin" event
- 	rule process_fs_checkin is active {
- 		select when foursquare checkin
- 		// store venue name, city, shout, and createdAt event attributes in entity variables
- 		pre {
+		
+		create_value_map = function(checkin) {
 			// extract values from event
-			checkin = event:attr("checkin").decode();
 			venue_name = checkin.pick("$..venue.name");
 			city = checkin.pick("$..location.city");
 			shout = checkin.pick("$..shout", true).head();
@@ -45,28 +38,10 @@ ruleset foursquare {
 						"lat":       latitude,
 						"lng":       longitude
 					  };
- 		}
- 		
- 		send_directive(venue_name) with body = { "key": "checkin",
-												 "value": venue_name };
- 		
-		fired {
-			//mark ent:checkin with checkin.encode();
-			mark ent:venue_name with venue_name;
-			mark ent:city with city;
-			mark ent:shout with shout;
-			mark ent:created with createdAt;
-			
-			mark ent:val_map with val_map;
-			
-			// raise a pds:new_location_data
-			// key: fs_checkin
-			// value: map with checkin info 
-			raise pds event "new_location_data"
-				with key = "fs_checkin"
-				 and value = val_map;
+			val_map;
 		}
- 	}
+	}
+	 	
 
  	
 	// A dispatch rule that uses foreach to loop over the subscription map
@@ -76,12 +51,38 @@ ruleset foursquare {
 		select when foursquare checkin
 			foreach subscribers setting (subscriber)
 			    pre {
-					location = current ent:val_map;
+					val_map = create_value_map(event:attr("checkin").decode());
 				}
 				event:send(subscriber, "location", "notification")
 					with attrs = {"_rids": subscriber{"rid"},
-								  "location": event:attr("checkin")};
+								  "location": val_map.encode() };
 	}
+ 	
+	// Listen for "foursquare checkin" event
+ 	rule process_fs_checkin is active {
+ 		select when foursquare checkin
+ 		// store venue name, city, shout, and createdAt event attributes in entity variables
+ 		pre {
+			// extract values from event
+			checkin = event:attr("checkin").decode();
+			val_map = create_value_map(event:attr("checkin").decode());
+ 		}
+ 		
+ 		send_directive(venue_name) with body = { "key": "checkin",
+												 "value": venue_name };
+ 		
+		fired {
+			mark ent:venue_name with venue_name;
+			mark ent:city with city;
+			mark ent:shout with shout;
+			mark ent:created with createdAt;
+			
+			// raise a pds:new_location_data
+			raise pds event "new_location_data"
+				with key = "fs_checkin"
+				 and value = val_map;
+		}
+ 	}
  	
  	// Shows checkin results in SquareTag
  	rule display_checkin {
