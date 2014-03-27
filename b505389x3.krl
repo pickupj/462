@@ -80,7 +80,7 @@ ruleset foursquare {
 				}
 				event:send(subscriber, "location", "notification")
 					with attrs = {"_rids": subscriber{"rid"},
-								  "location": location};
+								  "location": event:attr("checkin")};
 	}
  	
  	// Shows checkin results in SquareTag
