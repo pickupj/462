@@ -13,10 +13,10 @@ ruleset foursquare {
 	}
 	
 	global {
-		subscription_1 = { "rid": "b505964x0",
+		subscription_1 = { //"rid": "b505964x0",
 						   "cid":  "10b1719e-b5d4-11e3-9dd4-b1c8e71c24e1"
 						 };
-		subscription_2 = { "rid": "b505965x0",
+		subscription_2 = { //"rid": "b505965x0",
 						   "cid":  "1797EB0A-B5D4-11E3-91A6-382D293232C8"
 						 };
 						 
@@ -36,8 +36,8 @@ ruleset foursquare {
 				location = current ent:val_map;
 			}
 			{
-				send_directive(key) with body = { "key": rid,
-												 "value": cid };
+				send_directive(rid) with body = { "key": rid,
+												"value": cid };
 				event:send(subscriber, "location", "notification")
 					with attrs = { "_rids": rid,
 					               "location": location };
