@@ -41,7 +41,7 @@ ruleset foursquare {
 						"venue":     venue_name,
 						"city" :     city,
 						"shout" :    shout,
-						"createdAt": createdAt
+						"createdAt": createdAt,
 					};
 				}
 				event:send(subscriber, "location", "notification")
