@@ -21,7 +21,7 @@ ruleset twilio {
 	global {
 	}
 	
-	// Listens for the new_current:location event 
+	// Listens for the explicit location_nearby event 
 	rule nearby is active {
  		select when explicit location_nearby
  		pre {
