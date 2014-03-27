@@ -24,16 +24,6 @@ ruleset foursquare {
 	}
 	 	
  	
-	// A dispatch rule that uses foreach to loop over the subscription map
-	// and the event:send() action to send a location:notification event
-	// to each subscriber
-	rule dispatch_location_notification is active {
-		select when foursquare checkin
-			foreach subscribers setting (subscriber)
-				event:send(subscriber, "location", "notification")
-					with attrs = {"_rids": subscriber{"rid"}};
-	}
- 	
 	// Listen for "foursquare checkin" event
  	rule process_fs_checkin is active {
  		select when foursquare checkin
@@ -78,6 +68,20 @@ ruleset foursquare {
 		}
  	}
 
+ 	
+	// A dispatch rule that uses foreach to loop over the subscription map
+	// and the event:send() action to send a location:notification event
+	// to each subscriber
+	rule dispatch_location_notification is active {
+		select when foursquare checkin
+			foreach subscribers setting (subscriber)
+			    pre {
+					location = current ent:val_map;
+				}
+				event:send(subscriber, "location", "notification")
+					with attrs = {"_rids": subscriber{"rid"},
+								  "location": location};
+	}
  	
  	// Shows checkin results in SquareTag
  	rule display_checkin {
