@@ -48,7 +48,7 @@ ruleset location_notification {
  			replace_inner("#venue_name", venue_name);
  			replace_inner("#city", city);
  			replace_inner("#shout", shout);
- 			replace_inner("#created", createdAt);
+ 			replace_inner("#created", created);
  		}
 	}
 }
