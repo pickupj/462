@@ -17,10 +17,10 @@ ruleset location_notification {
  		pre {
 			location = event:attr("location");
  		}
-		send_directive("location_catch") with body = "rule fired";
+		send_directive("location_catch") with body = location;
  		fired {
-			mark ent:location with location;
 			ent:page_visits += 1 from 1;
+			mark ent:location with location;
 		}
 	}
 	
