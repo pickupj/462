@@ -13,31 +13,14 @@ ruleset foursquare {
 	}
 	
 	global {
-		subscription_1 = { "_rids": "b505964x0",
+		subscription_1 = { "rids": "b505964x0",
 						   "cid":  "10B1719E-B5D4-11E3-9DD4-B1C8E71C24E1"
 						 };
-		subscription_2 = { "_rids": "b505965x0",
+		subscription_2 = { "rids": "b505965x0",
 						   "cid":  "1797EB0A-B5D4-11E3-91A6-382D293232C8"
 						 };
 						 
 		subscribers = [ subscription_1, subscription_2 ];
-	}
-	
-	// A dispatch rule that uses foreach to loop over the subscription map
-	// and the event:send() action to send a location:notification event
-	// to each subscriber
-	rule dispatch_location_notification is active {
-		select when foursquare checkin
-			foreach subscribers setting (subscriber)
-			pre {
-				name = subscriber{"name"};
-				cid = subscriber{"cid"};
-			}
-			{
-				send_directive(name) with body = { "key": name,
-												 "value": cid };
-				event:send(subscriber, "location", "notification");
-			}
 	}
 	
 	// Listen for "foursquare checkin" event
@@ -73,6 +56,8 @@ ruleset foursquare {
 			mark ent:shout with shout;
 			mark ent:created with createdAt;
 			
+			mark ent:val_map with val_map;
+			
 			// raise a pds:new_location_data
 			// key: fs_checkin
 			// value: map with checkin info 
@@ -81,6 +66,27 @@ ruleset foursquare {
 				 and value = val_map;
 		}
  	}
+ 	
+ 	
+	// A dispatch rule that uses foreach to loop over the subscription map
+	// and the event:send() action to send a location:notification event
+	// to each subscriber
+	rule dispatch_location_notification is active {
+		select when foursquare checkin
+			foreach subscribers setting (subscriber)
+			pre {
+				name = subscriber{"rids"};
+				cid = subscriber{"cid"};
+				location = current ent:val_map;
+			}
+			{
+				send_directive(name) with body = { "key": name,
+												 "value": cid };
+				event:send(subscriber, "location", "notification")
+					with attrs = { "location": location};
+			}
+	}
+ 	
  	
  	// Shows checkin results in SquareTag
  	rule display_checkin {

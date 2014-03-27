@@ -17,10 +17,14 @@ ruleset location_notification {
  		select when location notification
  		pre {
 			location = LocationData:get_location_data("fs_checkin");
+			x = event:attr("location");
+			y = "fired";
  		}
 		send_directive("location_catch") with body = "rule fired";
  		fired {
 			mark ent:location with location;
+			mark ent:x with x;
+			mark ent:y with y;
 		}
 	}
 	
@@ -32,6 +36,7 @@ ruleset location_notification {
 			city = info{"city"};
 			shout = info{"shout"};
 			created = info{"createdAt"};
+			y = current ent:y;
  		
 			html = <<
 				<h3>Checkin</h3>
@@ -50,6 +55,7 @@ ruleset location_notification {
  			replace_inner("#city", city);
  			replace_inner("#shout", shout);
  			replace_inner("#created", created);
+ 			replace_inner("#checkin", y);
  		}
 	}
 }
