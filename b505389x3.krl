@@ -29,7 +29,15 @@ ruleset foursquare {
 	rule dispatch_location_notification is active {
 		select when foursquare checkin
 			foreach subscribers setting (subscriber)
-			event:send(subscriber, "location", "notification");
+			pre {
+				name = subscriber{"name"};
+				cid = subscriber{"cid"};
+			}
+			{
+				send_directive(name) with body = { "key": name,
+												 "value": cid };
+				event:send(subscriber, "location", "notification");
+			}
 	}
 	
 	// Listen for "foursquare checkin" event
