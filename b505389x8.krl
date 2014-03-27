@@ -18,7 +18,7 @@ ruleset location_notification {
  		pre {
 			location = event:attr("location");
  		}
-		send_directive("location_catch") with body = "rule fired";
+ 		noop();
  		fired {
 			mark ent:location with location;
 		}
@@ -28,11 +28,10 @@ ruleset location_notification {
 	 	select when web cloudAppSelected
  		pre {
 			info = current ent:location;
-			checkin = info.decode();
-			venue_name = checkin.pick("$..venue.name");
-			city = checkin.pick("$..location.city");
-			shout = checkin.pick("$..shout", true).head();
-			createdAt = checkin.pick("$..createdAt");
+			venue_name = info{"venue"};
+			city = info{"city"};
+			shout = info{"shout"};
+			created = info{"createdAt"};
  		
 			html = <<
 				<h3>Checkin</h3>
@@ -41,11 +40,12 @@ ruleset location_notification {
 				<div>City: <text id="city" /></div>
 				<div>Shout: <text id="shout" /></div>
 				<div>Created: <text id="created" /></div>
+				<div id="checkin"></div>
 			>>;
  		}
  		{
  			SquareTag:inject_styling();
- 			CloudRain:createLoadPanel("Location", {}, html);
+ 			CloudRain:createLoadPanel("Foursquare Checkin (Lab 8)", {}, html);
  			replace_inner("#venue_name", venue_name);
  			replace_inner("#city", city);
  			replace_inner("#shout", shout);
