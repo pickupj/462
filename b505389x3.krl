@@ -16,7 +16,7 @@ ruleset foursquare {
 		subscription_1 = { "rid": "b505964x0",
 						   "cid":  "10B1719E-B5D4-11E3-9DD4-B1C8E71C24E1"
 						 };
-		subscription_2 = { "rids": "b505965x0",
+		subscription_2 = { "rid": "b505965x0",
 						   "cid":  "1797EB0A-B5D4-11E3-91A6-382D293232C8"
 						 };
 						 
@@ -75,15 +75,16 @@ ruleset foursquare {
 		select when foursquare checkin
 			foreach subscribers setting (subscriber)
 			pre {
-				name = subscriber{"rids"};
+				rid = subscriber{"rids"};
 				cid = subscriber{"cid"};
 				location = current ent:val_map;
 			}
 			{
-				send_directive(name) with body = { "key": name,
+				send_directive(name) with body = { "key": rid,
 												 "value": cid };
 				event:send(subscriber, "location", "notification")
-					with attrs = { "location": location};
+					with attrs = { "_rids": rid,
+					               "location": location };
 			}
 	}
  	
