@@ -12,6 +12,26 @@ ruleset foursquare {
  		use module a41x186  alias SquareTag
 	}
 	
+	global {
+		subscription_1 = { "name": "S1",
+						   "cid":  "10B1719E-B5D4-11E3-9DD4-B1C8E71C24E1"
+						 };
+		subscription_2 = { "name": "S2",
+						   "cid":  "1797EB0A-B5D4-11E3-91A6-382D293232C8"
+						 };
+						 
+		subscribers = [ subscription_1, subscription_2 ];
+	}
+	
+	// A dispatch rule that uses foreach to loop over the subscription map
+	// and the event:send() action to send a location:notification event
+	// to each subscriber
+	rule dispatch_location_notification is active {
+		select when foursquare checkin
+			foreach subscribers setting (subscriber)
+			event:send(subscriber, "location", "notification");
+	}
+	
 	// Listen for "foursquare checkin" event
  	rule process_fs_checkin is active {
  		select when foursquare checkin
