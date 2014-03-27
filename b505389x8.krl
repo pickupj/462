@@ -33,7 +33,7 @@ ruleset location_notification {
  		}
  		{
  			SquareTag:inject_styling();
- 			CloudRain:createLoadPanel("Rotten Tomamotes", {}, html);
+ 			CloudRain:createLoadPanel("Location", {}, html);
  			replace_inner("#location", location);
  		}
 	}
