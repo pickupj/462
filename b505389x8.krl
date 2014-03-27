@@ -17,7 +17,7 @@ ruleset location_notification {
  		pre {
  		
  		}
- 		noop();
+		send_directive("location catch") with body = "rule fired";
  		fired {
 			mark ent:location with "rule fired"
 		}
@@ -29,12 +29,10 @@ ruleset location_notification {
 			html = <<
 				<div id="location></div>
 			>>;
-			location = current ent:location;
  		}
  		{
  			SquareTag:inject_styling();
  			CloudRain:createLoadPanel("Location", {}, html);
- 			replace_inner("#location", location);
  		}
 	}
 }
