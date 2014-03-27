@@ -23,30 +23,20 @@ ruleset foursquare {
 		subscribers = [ subscription_1, subscription_2 ];
 	}
 	 	
+
+ 	
 	// A dispatch rule that uses foreach to loop over the subscription map
 	// and the event:send() action to send a location:notification event
 	// to each subscriber
 	rule dispatch_location_notification is active {
 		select when foursquare checkin
 			foreach subscribers setting (subscriber)
-		 		pre {
-					// extract values from event
-					checkin = event:attr("checkin").decode();
-					venue_name = checkin.pick("$..venue.name");
-					city = checkin.pick("$..location.city");
-					shout = checkin.pick("$..shout", true).head();
-					createdAt = checkin.pick("$..createdAt");
-					
-					val_map = { 
-						"venue":     venue_name,
-						"city" :     city,
-						"shout" :    shout,
-						"createdAt": createdAt
-					};
+			    pre {
+					location = current ent:val_map;
 				}
 				event:send(subscriber, "location", "notification")
 					with attrs = {"_rids": subscriber{"rid"},
-								  "location": val_map.encode() };
+								  "location": event:attr("checkin")};
 	}
  	
 	// Listen for "foursquare checkin" event
