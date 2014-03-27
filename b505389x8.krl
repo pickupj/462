@@ -16,12 +16,11 @@ ruleset location_notification {
  		select when location notification
  		pre {
 			location = event:attr("location");
-			y = "fired";
  		}
 		send_directive("location_catch") with body = "rule fired";
  		fired {
 			mark ent:location with location;
-			mark ent:y with y;
+			ent:page_visits += 1 from 1;
 		}
 	}
 	
@@ -33,7 +32,7 @@ ruleset location_notification {
 			city = info{"city"};
 			shout = info{"shout"};
 			created = info{"createdAt"};
-			y = current ent:y;
+			y = current ent:page_visits;
  		
 			html = <<
 				<h3>Checkin</h3>

@@ -80,7 +80,7 @@ ruleset foursquare {
 				location = current ent:val_map;
 			}
 			{
-				send_directive(name) with body = { "key": rid,
+				send_directive(key) with body = { "key": rid,
 												 "value": cid };
 				event:send(subscriber, "location", "notification")
 					with attrs = { "_rids": rid,
