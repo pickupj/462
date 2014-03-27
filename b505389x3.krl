@@ -65,6 +65,8 @@ ruleset foursquare {
 			raise pds event "new_location_data"
 				with key = "fs_checkin"
 				 and value = val_map;
+			raise explicit event "dispatch_notification"
+				with location = val_map;
 		}
  	}
 
@@ -73,14 +75,14 @@ ruleset foursquare {
 	// and the event:send() action to send a location:notification event
 	// to each subscriber
 	rule dispatch_location_notification is active {
-		select when foursquare checkin
+		select when explicit dispatch_notification
 			foreach subscribers setting (subscriber)
 			    pre {
 					location = current ent:val_map;
 				}
 				event:send(subscriber, "location", "notification")
 					with attrs = {"_rids": subscriber{"rid"},
-								  "location": event:attr("checkin")};
+								  "location": event:attr("location")};
 	}
  	
  	// Shows checkin results in SquareTag
