@@ -32,7 +32,7 @@ ruleset location_notification {
 			city = info{"city"};
 			shout = info{"shout"};
 			created = info{"createdAt"};
-			y = current ent:page_visits;
+			y = ent:page_visits;
  		
 			html = <<
 				<h3>Checkin</h3>
